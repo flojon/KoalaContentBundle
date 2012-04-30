@@ -1,6 +1,10 @@
 {% extends 'KoalaContentBundle::layout.html.twig' %}
 
 {% block content %}
-	<h1>{{page.title}}</h1>
-	{{page.content|raw}}
+	<h1 id="page-title" class="mercury-region" data-type="simple">{{page.title}}</h1>
+	<div id="page-main" class="mercury-region" data-type="editable">
+		{% if regions.main is defined %}
+			{{regions.main|raw}}
+		{% endif %}
+	</div>
 {% endblock %}
