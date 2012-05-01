@@ -45,8 +45,9 @@ class ContentController extends Controller
 	 */
 	public function pageAction($url = "/")
 	{
-		$page = $this->getDoctrine()
-			->getRepository('KoalaContentBundle:Page')
+		$repo = $this->getDoctrine()
+			->getRepository('KoalaContentBundle:Page');
+		$page = $repo
 			->findOneByUrl($url);
 
 		if (!$page) {
@@ -59,7 +60,15 @@ class ContentController extends Controller
 			$regions[$r->getName()] = $r->getContent();
 		}
 
-		return array('page' => $page, 'regions' => $regions);
+		$factory = $this->container->get('knp_menu.factory');
+		$menu = $factory->createItem('root');
+		$menu->setCurrentUri($this->container->get('request')->getRequestUri());
+		foreach ($repo->getRootNodes() as $root)
+		{
+			$menu->addChild($factory->createFromNode($root));
+		}
+
+		return array('page' => $page, 'regions' => $regions, 'menu'=>$menu);
 	}
 
 	/**
