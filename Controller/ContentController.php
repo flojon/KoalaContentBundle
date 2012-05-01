@@ -8,10 +8,36 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Koala\ContentBundle\Entity\Page;
 use Koala\ContentBundle\Entity\Region;
+use Koala\ContentBundle\Type\PageType;
 
 class ContentController extends Controller
 {
+	/**
+	 * @Route("/new", name="page_new")
+	 * @Template()
+	 */
+	public function newAction(Request $request)
+	{
+		$page = new Page();
+		$form = $this->createForm(new PageType(), $page);
+
+		if ($request->getMethod() == 'POST')
+		{
+			$form->bindRequest($request);
+
+			if ($form->isValid())
+			{
+				$em = $this->getDoctrine()->getEntityManager();
+				$em->persist($page);
+				$em->flush();
+			}
+		}
+
+		return array('form'=>$form->createView());
+	}
+
 	/**
 	 * @Route("/content/{url}", defaults={"url"="/"}, requirements={"url"=".*"})
 	 * @Method("GET")
