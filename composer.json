@@ -1,0 +1,23 @@
+{
+    "name": "koala/content-bundle",
+    "description": "A simple Symfony 2 CMS bundle using Mercury Editor",
+    "keywords":     ["symfony, mercury, cms"],
+    "type":         "symfony-bundle",
+    "license":      "MIT",
+    "authors": [
+        {
+            "name": "Jonas Flodén",
+            "email": "jonas@koalasoft.se"
+        }
+    ],
+    "require": {
+        "symfony/framework-bundle": "2.*",
+        "knplabs/knp-menu": ">=1.0",
+        "knplabs/knp-menu-bundle": "dev-master",
+        "stof/doctrine-extensions-bundle": ">=1.0"
+    },
+    "autoload":     {
+        "psr-0": { "Koala\\ContentBundle": "" }
+    },
+    "target-dir": "Koala/ContentBundle"	
+}
