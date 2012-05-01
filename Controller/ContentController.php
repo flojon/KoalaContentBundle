@@ -13,15 +13,15 @@ use Koala\ContentBundle\Entity\Region;
 class ContentController extends Controller
 {
 	/**
-	 * @Route("/content/{slug}", defaults={"slug"="index"})
+	 * @Route("/content/{url}", defaults={"url"="/"}, requirements={"url"=".*"})
 	 * @Method("GET")
 	 * @Template()
 	 */
-	public function pageAction($slug = "index")
+	public function pageAction($url = "/")
 	{
 		$page = $this->getDoctrine()
 			->getRepository('KoalaContentBundle:Page')
-			->findOneBySlug($slug);
+			->findOneByUrl($url);
 
 		if (!$page) {
 			throw $this->createNotFoundException('404 - Not found!');
@@ -37,13 +37,13 @@ class ContentController extends Controller
 	}
 
 	/**
-	 * @Route("/content/{slug}", defaults={"slug"="index"})
+	 * @Route("/content/{url}", defaults={"url"="/"}, requirements={"url"=".*"})
 	 * @Method("POST")
 	 */
-	public function editPage(Request $request, $slug = "index")
+	public function editPage(Request $request, $url = "/")
 	{
 		$em = $this->getDoctrine()->getEntityManager();
-		$page = $em->getRepository('KoalaContentBundle:Page')->findOneBySlug($slug);
+		$page = $em->getRepository('KoalaContentBundle:Page')->findOneByUrl($url);
 
 		if ($request->isXmlHttpRequest()) { // Mercury save
 			if (!$page) {

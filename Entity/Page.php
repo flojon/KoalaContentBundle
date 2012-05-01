@@ -30,6 +30,11 @@ class Page
 	protected $slug;
 
 	/**
+	 * @ORM\Column(type="string", length=128)
+	 */
+	protected $url;
+
+	/**
 	 * @ORM\Column(type="string")
 	 */
 	protected $background_url;
@@ -173,5 +178,25 @@ class Page
 	public function getRegions()
 	{
 		return $this->regions;
+	}
+
+	/**
+	 * Set url
+	 *
+	 * @param string $url
+	 */
+	public function setUrl($url)
+	{
+		$this->url = $url;
+	}
+
+	/**
+	 * Get url
+	 *
+	 * @return string
+	 */
+	public function getUrl()
+	{
+		return $this->url;
 	}
 }
