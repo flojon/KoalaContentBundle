@@ -59,7 +59,8 @@ class Page
 	protected $menu_title;
 
 	/**
-	 * @ORM\Column(type="string", length=100)
+	 * @Gedmo\Slug(fields={"menu_title"})
+	 * @ORM\Column(length=128, unique=true)
 	 */
 	protected $slug;
 
