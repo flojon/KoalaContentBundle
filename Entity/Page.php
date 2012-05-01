@@ -1,9 +1,11 @@
 <?php
 namespace Koala\ContentBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity
+ * @Gedmo\Tree(type="nested")
+ * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\NestedTreeRepository")
  */
 class Page
 {
@@ -15,7 +17,41 @@ class Page
 	protected $id;
 
 	/**
+	 * @Gedmo\TreeLeft
+	 * @ORM\Column(name="lft", type="integer")
 	 */
+	private $lft;
+
+	/**
+	 * @Gedmo\TreeLevel
+	 * @ORM\Column(name="lvl", type="integer")
+	 */
+	private $lvl;
+
+	/**
+	 * @Gedmo\TreeRight
+	 * @ORM\Column(name="rgt", type="integer")
+	 */
+	private $rgt;
+
+	/**
+	 * @Gedmo\TreeRoot
+	 * @ORM\Column(name="root", type="integer", nullable=true)
+	 */
+	private $root;
+
+	/**
+	 * @Gedmo\TreeParent
+	 * @ORM\ManyToOne(targetEntity="Page", inversedBy="children")
+	 * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="SET NULL")
+	 */
+	private $parent;
+
+	/**
+	 * @ORM\OneToMany(targetEntity="Page", mappedBy="parent")
+	 * @ORM\OrderBy({"lft" = "ASC"})
+	 */
+	private $children;
 
 	/**
 	 * @ORM\Column(type="string", length=100)
@@ -137,6 +173,11 @@ class Page
 		$this->regions = new \Doctrine\Common\Collections\ArrayCollection();
 	}
 
+	public function __toString()
+	{
+		return $this->getMenuTitle();
+	}
+
 	/**
 	 * Add region
 	 *
@@ -156,6 +197,126 @@ class Page
 	public function getRegions()
 	{
 		return $this->regions;
+	}
+
+	/**
+	 * Set lft
+	 *
+	 * @param integer $lft
+	 */
+	public function setLft($lft)
+	{
+		$this->lft = $lft;
+	}
+
+	/**
+	 * Get lft
+	 *
+	 * @return integer
+	 */
+	public function getLft()
+	{
+		return $this->lft;
+	}
+
+	/**
+	 * Set lvl
+	 *
+	 * @param integer $lvl
+	 */
+	public function setLvl($lvl)
+	{
+		$this->lvl = $lvl;
+	}
+
+	/**
+	 * Get lvl
+	 *
+	 * @return integer
+	 */
+	public function getLvl()
+	{
+		return $this->lvl;
+	}
+
+	/**
+	 * Set rgt
+	 *
+	 * @param integer $rgt
+	 */
+	public function setRgt($rgt)
+	{
+		$this->rgt = $rgt;
+	}
+
+	/**
+	 * Get rgt
+	 *
+	 * @return integer
+	 */
+	public function getRgt()
+	{
+		return $this->rgt;
+	}
+
+	/**
+	 * Set root
+	 *
+	 * @param integer $root
+	 */
+	public function setRoot($root)
+	{
+		$this->root = $root;
+	}
+
+	/**
+	 * Get root
+	 *
+	 * @return integer
+	 */
+	public function getRoot()
+	{
+		return $this->root;
+	}
+
+	/**
+	 * Set parent
+	 *
+	 * @param Koala\ContentBundle\Entity\Page $parent
+	 */
+	public function setParent(\Koala\ContentBundle\Entity\Page $parent)
+	{
+		$this->parent = $parent;
+	}
+
+	/**
+	 * Get parent
+	 *
+	 * @return Koala\ContentBundle\Entity\Page
+	 */
+	public function getParent()
+	{
+		return $this->parent;
+	}
+
+	/**
+	 * Get children
+	 *
+	 * @return Doctrine\Common\Collections\Collection
+	 */
+	public function getChildren()
+	{
+		return $this->children;
+	}
+
+	/**
+	 * Add children
+	 *
+	 * @param Koala\ContentBundle\Entity\Page $children
+	 */
+	public function addPage(\Koala\ContentBundle\Entity\Page $children)
+	{
+		$this->children[] = $children;
 	}
 
 	/**
