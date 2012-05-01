@@ -2,12 +2,13 @@
 namespace Koala\ContentBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Knp\Menu\NodeInterface;
 
 /**
  * @Gedmo\Tree(type="nested")
  * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\NestedTreeRepository")
  */
-class Page
+class Page implements NodeInterface
 {
 	/**
 	 * @ORM\Id
@@ -78,6 +79,31 @@ class Page
 	 * @ORM\OneToMany(targetEntity="Region", mappedBy="page")
 	 */
 	protected $regions;
+
+	/**
+	 * Get the name of the node
+	 *
+	 * Each child of a node must have a unique name
+	 *
+	 * @return string
+	 */
+	function getName()
+	{
+		return $this->getMenuTitle();
+	}
+
+	/**
+	 * Get the options for the factory to create the item for this node
+	 *
+	 * @return array
+	 */
+	function getOptions()
+	{
+		return array(
+			'route'=>'koala_content_content_page',
+			'routeParameters' => array('url' => $this->getUrl()),
+		);
+	}
 
 	/**
 	 * Get id
