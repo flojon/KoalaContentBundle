@@ -93,7 +93,15 @@ class ContentController extends Controller
 				foreach ($page->getRegions() as $region)
 				{
 					$name = $region->getName();
-					$region->setContent($params['page-'.$name]['value']);
+					if (empty($params['page-'.$name]))
+					{
+						$em->remove($region);
+					}
+					else
+					{
+						$region->setContent($params['page-'.$name]['value']);
+					}
+					
 					unset($params['page-'.$name]);
 				}
 				foreach ($params as $id=>$value)
