@@ -100,7 +100,7 @@ class Page implements NodeInterface
 	function getOptions()
 	{
 		return array(
-			'route'=>'koala_content_content_page',
+			'route'=>'koala_content_page_show',
 			'routeParameters' => array('url' => $this->getUrl()),
 		);
 	}
