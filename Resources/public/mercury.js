@@ -2,6 +2,7 @@ if (top.Mercury) {
   window.Mercury = top.Mercury;
   Mercury.on('ready', function() {
 	  Mercury.config.uploading.url = top.$('meta[name=mercury-images]').attr('content');
+	  Mercury.saveUrl = top.$('meta[name=mercury-content]').attr('content');
   });
 }
 

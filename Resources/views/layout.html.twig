@@ -3,6 +3,7 @@
 {% block stylesheets %}
 	{{parent()}}
 	<meta name="mercury-images" content="{{path('koala_content_mercury_images')}}"/>
+	<meta name="mercury-content" content="{{path('koala_content_mercury_content', {'url': page.url})}}">
 {% endblock %}
 
 {% block javascripts %}

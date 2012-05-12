@@ -7,6 +7,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
+use Koala\ContentBundle\Entity\Region;
+use Koala\ContentBundle\MercuryRegions;
+
 class MercuryController extends Controller
 {
     /**
@@ -34,7 +37,57 @@ class MercuryController extends Controller
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
-    }    
+    }
+
+    /**
+     * Save contents from Mercury Editor
+     * @Route("/mercury/content/{url}", defaults={"url"="/"}, requirements={"url"=".*"})
+     * @Method("POST")
+     */
+    public function contentAction(Request $request, $url = "/")
+    {
+        if (!$request->isXmlHttpRequest()) { // Ajax Call?
+            throw new \Exception('This URL should only be called using AJAX');
+        }
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $page = $em->getRepository('KoalaContentBundle:Page')->findOneByUrl($url);
+        if (!$page) {
+            throw $this->createNotFoundException('Invalid URL');
+        }
+
+        $content = $request->get('content');
+        if (!empty($content))
+        {
+            $regions = new MercuryRegions($content);
+
+            foreach ($page->getRegions() as $region)
+            {
+                $name = $region->getName();
+                if (empty($regions[$name])) {
+                    $em->remove($region);
+                }
+                else {
+                    $region->setContent($regions[$name]);
+                }
+                unset($regions[$name]);
+            }
+            foreach ($regions as $name=>$content)
+            {
+                $region = new Region();
+                $region->setName($name);
+                $region->setContent($content);
+                $em->persist($region);
+                $page->addRegion($region);
+            }
+
+            $em->flush();
+        }
+
+        $response = new Response("");
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
 
     /**
      * Will create unique filename in directory by appending a number to basename
@@ -63,8 +116,8 @@ class MercuryController extends Controller
     /**
      * Join two paths together
      *
-     * @param string $dir1 
-     * @param string $dir2 
+     * @param string $dir1
+     * @param string $dir2
      * @return string
      * @author Jonas Flodén
      */
