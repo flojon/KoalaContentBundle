@@ -2,14 +2,18 @@
 
 {% block stylesheets %}
 	{{parent()}}
+	{% if (can_edit) %}
 	<meta name="mercury-images" content="{{path('koala_content_mercury_images')}}"/>
 	<meta name="mercury-content" content="{{path('koala_content_mercury_content', {'url': page.url})}}">
+	{% endif %}
 {% endblock %}
 
 {% block javascripts %}
 	{{parent()}}
+	{% if (can_edit) %}
 	<script src="{{asset('bundles/koalacontent/mercury.js')}}" type="text/javascript" charset="utf-8"></script>
 	<script src="{{asset('mercury/javascripts/mercury_loader.js')}}?visible=false&pack=bundled&src={{asset('mercury')}}" type="text/javascript" charset="utf-8"></script>
+	{% endif %}
 {% endblock %}
 
 {% block body %}

@@ -1,7 +1,6 @@
 <?php
 namespace Koala\ContentBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Koala\ContentBundle\Entity\Region;
 use Koala\ContentBundle\MercuryRegions;
 
-class MercuryController extends Controller
+class MercuryController extends SecuredController
 {
     /**
      * Receive uploaded images from Mercury and return url as JSON
@@ -20,6 +19,10 @@ class MercuryController extends Controller
      */
     public function imagesAction(Request $request)
     {
+		if (!$this->can_edit()) {
+			throw new \Exception('Permission denied');
+		}
+		
         if (!$request->isXmlHttpRequest()) { // Ajax Call?
             throw new \Exception('This URL should only be called using AJAX');
         }
@@ -46,6 +49,10 @@ class MercuryController extends Controller
      */
     public function contentAction(Request $request, $url = "/")
     {
+		if (!$this->can_edit()) {
+			throw new \Exception('Permission denied');
+		}
+		
         if (!$request->isXmlHttpRequest()) { // Ajax Call?
             throw new \Exception('This URL should only be called using AJAX');
         }

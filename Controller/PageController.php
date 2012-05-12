@@ -12,7 +12,7 @@ use Koala\ContentBundle\Entity\Page;
 use Koala\ContentBundle\Entity\Region;
 use Koala\ContentBundle\Type\PageType;
 
-class PageController extends Controller
+class PageController extends SecuredController
 {
     /**
      * @Route("/new")
@@ -79,6 +79,6 @@ class PageController extends Controller
             $menu->addChild($factory->createFromNode($root));
         }
 
-        return array('page' => $page, 'regions' => $regions, 'menu'=>$menu);
+        return array('page' => $page, 'regions' => $regions, 'menu'=>$menu, 'can_edit'=>$this->can_edit());
     }
 }
