@@ -22,6 +22,8 @@ class KoalaContentExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
+		$container->setParameter('koala_content.editor_role', $config['editor_role']);
+
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
     }

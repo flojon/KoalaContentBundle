@@ -20,9 +20,11 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('koala_content');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+		$rootNode
+			->children()
+				->scalarNode('editor_role')->defaultValue('ROLE_ADMIN')->end()
+			->end()
+		;
 
         return $treeBuilder;
     }
