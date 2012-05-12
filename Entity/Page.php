@@ -1,6 +1,7 @@
 <?php
 namespace Koala\ContentBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Knp\Menu\NodeInterface;
 
@@ -56,6 +57,7 @@ class Page implements NodeInterface
 
 	/**
 	 * @ORM\Column(type="string", length=100)
+	 * @Assert\NotBlank
 	 */
 	protected $menu_title;
 
@@ -67,6 +69,7 @@ class Page implements NodeInterface
 
 	/**
 	 * @ORM\Column(type="string", length=128)
+	 * @Assert\NotBlank
 	 */
 	protected $url;
 
