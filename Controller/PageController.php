@@ -21,6 +21,10 @@ class PageController extends SecuredController
      */
     public function newAction(Request $request)
     {
+        if (!$this->can_edit()) {
+            throw new \Exception('Permission denied');
+        }
+
         $page = new Page();
         $form = $this->createForm(new PageType(), $page);
 
@@ -33,6 +37,10 @@ class PageController extends SecuredController
      */
     public function createAction(Request $request)
     {
+        if (!$this->can_edit()) {
+            throw new \Exception('Permission denied');
+        }
+
         $page = new Page();
         $form = $this->createForm(new PageType(), $page);
 
@@ -56,6 +64,10 @@ class PageController extends SecuredController
      */
     public function editAction($url = "/")
     {
+        if (!$this->can_edit()) {
+            throw new \Exception('Permission denied');
+        }
+
         $page = $this->getPage($url);
         $form = $this->createForm(new PageType(), $page);
 
@@ -68,6 +80,10 @@ class PageController extends SecuredController
      */
     public function updateAction(Request $request, $url = "/")
     {
+        if (!$this->can_edit()) {
+            throw new \Exception('Permission denied');
+        }
+
         $page = $this->getPage($url);
         $form = $this->createForm(new PageType(), $page);
 
