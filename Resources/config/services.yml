@@ -2,6 +2,7 @@ parameters:
     layouts_form_type.class: Koala\ContentBundle\Type\LayoutsFormType
     layouts_provider.class: Koala\ContentBundle\LayoutsProvider
     layouts_provider.layouts:
+        default: {name: Default Layout, template: 'KoalaContentBundle:Layouts:default.html.twig'}
 
 services:
     layouts_provider:

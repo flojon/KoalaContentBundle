@@ -52,7 +52,6 @@ class PageController extends SecuredController
     /**
      * @Route("/{url}", defaults={"url"="/"}, requirements={"url"=".+"})
      * @Method("GET")
-     * @Template()
      */
     public function showAction($url = "/")
     {
@@ -79,6 +78,8 @@ class PageController extends SecuredController
             $menu->addChild($factory->createFromNode($root));
         }
 
-        return array('page' => $page, 'regions' => $regions, 'menu'=>$menu, 'can_edit'=>$this->can_edit());
+        $template = $this->get('layouts_provider')->getTemplate($page->getLayout());
+
+        return $this->render($template, array('page' => $page, 'regions' => $regions, 'menu'=>$menu, 'can_edit'=>$this->can_edit()));
     }
 }
