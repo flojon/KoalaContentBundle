@@ -1,4 +1,5 @@
 parameters:
+    layouts_form_type.class: Koala\ContentBundle\Type\LayoutsFormType
     layouts_provider.class: Koala\ContentBundle\LayoutsProvider
     layouts_provider.layouts:
 
@@ -7,3 +8,9 @@ services:
         class: %layouts_provider.class%
         arguments:
             - %layouts_provider.layouts%
+    layouts_form_type:
+        class: %layouts_form_type.class%
+        arguments:
+            - @layouts_provider
+        tags:
+            - { name: form.type, alias: layouts }
