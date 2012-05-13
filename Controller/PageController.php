@@ -57,12 +57,8 @@ class PageController extends SecuredController
     {
         $repo = $this->getDoctrine()
             ->getRepository('KoalaContentBundle:Page');
-        $page = $repo
-            ->findOneByUrl($url);
 
-        if (!$page) {
-            throw $this->createNotFoundException('404 - Not found!');
-        }
+        $page = $this->getPage($url);
 
         $regions = array();
         foreach ($page->getRegions() as $r)
@@ -81,5 +77,16 @@ class PageController extends SecuredController
         $template = $this->get('layouts_provider')->getTemplate($page->getLayout());
 
         return $this->render($template, array('page' => $page, 'regions' => $regions, 'menu'=>$menu, 'can_edit'=>$this->can_edit()));
+    }
+
+    protected function getPage($url)
+    {
+        $page = $this->getDoctrine()->getRepository('KoalaContentBundle:Page')->findOneByUrl($url);
+
+        if (!$page) {
+            throw $this->createNotFoundException('404 - Not found!');
+        }
+
+        return $page;
     }
 }
