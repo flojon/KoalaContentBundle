@@ -77,6 +77,13 @@ class Page implements NodeInterface
 	 * @ORM\Column(type="string")
 	 */
 	protected $background_url;
+	
+	/**
+	 * Specifies template used for rendering the page
+	 *
+	 * @ORM\Column(type="string")
+	 */
+	protected $layout;
 
 	/**
 	 * @ORM\OneToMany(targetEntity="Region", mappedBy="page")
@@ -368,4 +375,24 @@ class Page implements NodeInterface
 	{
 		return $this->url;
 	}
+
+    /**
+     * Set layout
+     *
+     * @param string $layout
+     */
+    public function setLayout($layout)
+    {
+        $this->layout = $layout;
+    }
+
+    /**
+     * Get layout
+     *
+     * @return string 
+     */
+    public function getLayout()
+    {
+        return $this->layout;
+    }
 }

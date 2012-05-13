@@ -12,6 +12,7 @@ class PageType extends AbstractType
 		$builder->add('menu_title');
 		$builder->add('url');
 		$builder->add('slug');
+		$builder->add('layout', 'layouts');
 	}
 
 	public function getName()
