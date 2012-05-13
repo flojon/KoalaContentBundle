@@ -24,7 +24,7 @@ class KoalaContentExtension extends Extension
 
 		$container->setParameter('koala_content.editor_role', $config['editor_role']);
 
-        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.xml');
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('services.yml');
     }
 }
