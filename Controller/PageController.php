@@ -50,6 +50,41 @@ class PageController extends SecuredController
     }
 
     /**
+     * @Route("/edit/{url}", defaults={"url"="/"}, requirements={"url"=".+"})
+     * @Template()
+     * @Method("GET")
+     */
+    public function editAction($url = "/")
+    {
+        $page = $this->getPage($url);
+        $form = $this->createForm(new PageType(), $page);
+
+        return array('form'=>$form->createView());
+    }
+
+    /**
+     * @Route("/edit/{url}", defaults={"url"="/"}, requirements={"url"=".+"})
+     * @Method("POST")
+     */
+    public function updateAction(Request $request, $url = "/")
+    {
+        $page = $this->getPage($url);
+        $form = $this->createForm(new PageType(), $page);
+
+        $form->bindRequest($request);
+
+        if ($form->isValid())
+        {
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('koala_content_page_show', array('url'=>$page->getUrl())));
+        }
+
+        return $this->render('KoalaContentBundle:Page:edit.html.twig', array('form'=>$form->createView()));
+    }
+
+    /**
      * @Route("/{url}", defaults={"url"="/"}, requirements={"url"=".+"})
      * @Method("GET")
      */
