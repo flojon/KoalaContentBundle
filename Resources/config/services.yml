@@ -1,0 +1,9 @@
+parameters:
+    layouts_provider.class: Koala\ContentBundle\LayoutsProvider
+    layouts_provider.layouts:
+
+services:
+    layouts_provider:
+        class: %layouts_provider.class%
+        arguments:
+            - %layouts_provider.layouts%
