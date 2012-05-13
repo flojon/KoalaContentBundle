@@ -1,5 +1,1 @@
-<form action="{{ path('koala_content_page_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-
-    <input type="submit" />
-</form>
+{% include 'KoalaContentBundle:Page:_form.html.twig' with {'action': path('koala_content_page_create')} %}
