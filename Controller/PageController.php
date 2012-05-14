@@ -101,6 +101,24 @@ class PageController extends SecuredController
     }
 
     /**
+     * @Route("/delete/{url}", defaults={"url"="/"}, requirements={"url"=".+"})
+     * @Method("POST")
+     */
+    public function deleteAction($url = "/")
+    {
+        if (!$this->can_edit()) {
+            throw new \Exception('Permission denied');
+        }
+
+        $page = $this->getPage($url);
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->remove($page);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('koala_content_page_show'));
+    }
+
+    /**
      * @Route("/{url}", defaults={"url"="/"}, requirements={"url"=".+"})
      * @Method("GET")
      */

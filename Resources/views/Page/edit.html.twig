@@ -1,1 +1,5 @@
 {% include 'KoalaContentBundle:Page:_form.html.twig' with {'action': path('koala_content_page_update', {'url': form.vars.value.url})} %}
+
+<form method="post" action="{{path('koala_content_page_delete', {'url': form.vars.value.url})}}">
+    <input type="submit" value="Delete Page"/>
+</form>
