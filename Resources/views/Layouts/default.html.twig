@@ -1,10 +1,13 @@
-{% extends 'KoalaContentBundle::layout.html.twig' %}
+{% extends '::base.html.twig' %}
 
-{% block content %}
-	<h1 id="page-title" class="mercury-region" data-type="simple">{% if regions.title is defined %}{{regions.title}}{% endif %}</h1>
-	<div id="page-main" class="mercury-region" data-type="editable">
-		{% if regions.main is defined %}
-			{{regions.main|raw}}
-		{% endif %}
-	</div>
+{% block body %}
+    {% block menu %}{{knp_menu_render(menu)}}{% endblock %}
+    {% block content %}
+        <h1 id="page-title" class="mercury-region" data-type="simple">{% if regions.title is defined %}{{regions.title}}{% endif %}</h1>
+        <div id="page-main" class="mercury-region" data-type="editable">
+            {% if regions.main is defined %}
+                {{regions.main|raw}}
+            {% endif %}
+        </div>
+    {% endblock %}
 {% endblock %}
