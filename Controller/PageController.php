@@ -121,6 +121,7 @@ class PageController extends SecuredController
     /**
      * @Route("/{url}", defaults={"url"="/"}, requirements={"url"=".+"})
      * @Method("GET")
+     * @Template()
      */
     public function showAction($url = "/")
     {
@@ -145,7 +146,7 @@ class PageController extends SecuredController
 
         $template = $this->get('layouts_provider')->getTemplate($page->getLayout());
 
-        return $this->render($template, array('page' => $page, 'regions' => $regions, 'menu'=>$menu, 'can_edit'=>$this->can_edit()));
+        return array('page' => $page, 'regions' => $regions, 'menu'=>$menu, 'template' => $template, 'can_edit'=>$this->can_edit());
     }
 
     protected function getPage($url)
