@@ -3,6 +3,9 @@ parameters:
     layouts_provider.class: Koala\ContentBundle\LayoutsProvider
     layouts_provider.layouts:
         default: {name: Default Layout, template: 'KoalaContentBundle:Layouts:default.html.twig'}
+    mercury_twig_extension.class: Koala\ContentBundle\Twig\MercuryExtension
+    mercury_twig_extension.template: 'KoalaContentBundle::mercury_region.html.twig'
+    mercury_twig_extension.defaults: {tag: 'div', default: ''}
 
 services:
     layouts_provider:
@@ -15,3 +18,10 @@ services:
             - @layouts_provider
         tags:
             - { name: form.type, alias: layouts }
+    mercury_twig_extension:
+        class: %mercury_twig_extension.class%
+        arguments:
+            - %mercury_twig_extension.template%
+            - %mercury_twig_extension.defaults%
+        tags:
+            - { name: twig.extension }

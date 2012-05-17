@@ -1,0 +1,34 @@
+{% block simple %}
+    {{block('content')}}
+{% endblock %}
+
+{% block editable %}
+    {{block('content')}}
+{% endblock %}
+
+{% block markupable %}
+    {{block('content')}}
+{% endblock %}
+
+{% block snippetable %}
+    {{block('content')}}
+{% endblock %}
+
+{% block content %}
+    <{{tag}} {{block('attr')}}>{{content|raw}}</{{tag}}>
+{% endblock %}
+
+{% block image %}
+    <img {{block('attr')}} src="{{content}}" />
+{% endblock %}
+
+{% block attr %}
+id="{{id}}" class="mercury-region
+{%- if class is defined %}
+ {{class}}
+{%- endif %}"
+{%- if style is defined %}
+ style="{{style}}"
+{%- endif %}
+ data-type="{{type}}"
+{%- endblock %}
