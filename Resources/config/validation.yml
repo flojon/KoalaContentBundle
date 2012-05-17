@@ -1,0 +1,15 @@
+Koala\ContentBundle\Entity\Page:
+    properties:
+        menu_title:
+            - NotBlank: ~
+        url:
+            - NotBlank: ~
+        layout:
+            - NotBlank: ~
+
+Koala\ContentBundle\Entity\Region:
+    properties:
+        name:
+            - NotBlank: ~
+        content:
+            - NotBlank: ~
