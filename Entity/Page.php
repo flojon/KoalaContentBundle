@@ -68,7 +68,7 @@ class Page implements NodeInterface
 	protected $slug;
 
 	/**
-	 * @ORM\Column(type="string", length=128)
+     * @ORM\Column(type="string", length=128, unique=true)
 	 * @Assert\NotBlank
 	 */
 	protected $url;
