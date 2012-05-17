@@ -21,6 +21,8 @@ class LayoutsProvider
 	
 	public function getTemplate($layout)
 	{
+        if (!isset($this->layouts[$layout]))
+            throw new \InvalidArgumentException("No template defined with name: $layout");
 		return $this->layouts[$layout]['template'];
 	}
 }
