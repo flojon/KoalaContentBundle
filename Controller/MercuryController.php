@@ -13,9 +13,6 @@ class MercuryController extends SecuredController
 {
     /**
      * Receive uploaded images from Mercury and return url as JSON
-     *
-     * @Route("/mercury/images")
-     * @Method("POST")
      */
     public function imagesAction(Request $request)
     {
@@ -44,8 +41,6 @@ class MercuryController extends SecuredController
 
     /**
      * Save contents from Mercury Editor
-     * @Route("/mercury/content/{url}", defaults={"url"="/"}, requirements={"url"=".*"})
-     * @Method("POST")
      */
     public function contentAction(Request $request, $url = "/")
     {

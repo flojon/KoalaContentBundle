@@ -1,0 +1,52 @@
+koala_content_mercury_images:
+    pattern: /mercury/images
+    defaults: {_controller: KoalaContentBundle:Mercury:images}
+    requirements:
+        _method: POST
+
+koala_content_mercury_content:
+    pattern: /mercury/content/{url}
+    defaults: {_controller: KoalaContentBundle:Mercury:content, url: /}
+    requirements:
+        _method: POST
+        url: .+
+
+koala_content_page_new:
+    pattern: /new
+    defaults: {_controller: KoalaContentBundle:Page:new}
+    requirements:
+        _method: GET
+
+koala_content_page_create:
+    pattern: /new
+    defaults: {_controller: KoalaContentBundle:Page:create}
+    requirements:
+        _method: POST
+
+koala_content_page_edit:
+    pattern: /edit/{url}
+    defaults: {_controller: KoalaContentBundle:Page:edit, url: /}
+    requirements:
+        _method: GET
+        url: .+
+
+koala_content_page_update:
+    pattern: /edit/{url}
+    defaults: {_controller: KoalaContentBundle:Page:update, url: /}
+    requirements:
+        _method: POST
+        url: .+
+
+koala_content_page_delete:
+    pattern: /delete/{url}
+    defaults: {_controller: KoalaContentBundle:Page:delete, url: /}
+    requirements:
+        _method: POST
+        url: .+
+
+koala_content_page_show:
+    pattern: /{url}
+    defaults: {_controller: KoalaContentBundle:Page:show, url: /}
+    requirements:
+        _method: GET
+        url: .+

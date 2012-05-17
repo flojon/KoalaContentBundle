@@ -15,9 +15,7 @@ use Koala\ContentBundle\Type\PageType;
 class PageController extends SecuredController
 {
     /**
-     * @Route("/new")
      * @Template()
-     * @Method("GET")
      */
     public function newAction(Request $request)
     {
@@ -31,10 +29,6 @@ class PageController extends SecuredController
         return array('form'=>$form->createView());
     }
 
-    /**
-     * @Route("/new")
-     * @Method("POST")
-     */
     public function createAction(Request $request)
     {
         if (!$this->can_edit()) {
@@ -58,9 +52,7 @@ class PageController extends SecuredController
     }
 
     /**
-     * @Route("/edit/{url}", defaults={"url"="/"}, requirements={"url"=".+"})
      * @Template()
-     * @Method("GET")
      */
     public function editAction($url = "/")
     {
@@ -74,10 +66,6 @@ class PageController extends SecuredController
         return array('form'=>$form->createView());
     }
 
-    /**
-     * @Route("/edit/{url}", defaults={"url"="/"}, requirements={"url"=".+"})
-     * @Method("POST")
-     */
     public function updateAction(Request $request, $url = "/")
     {
         if (!$this->can_edit()) {
@@ -100,10 +88,6 @@ class PageController extends SecuredController
         return $this->render('KoalaContentBundle:Page:edit.html.twig', array('form'=>$form->createView()));
     }
 
-    /**
-     * @Route("/delete/{url}", defaults={"url"="/"}, requirements={"url"=".+"})
-     * @Method("POST")
-     */
     public function deleteAction($url = "/")
     {
         if (!$this->can_edit()) {
@@ -119,8 +103,6 @@ class PageController extends SecuredController
     }
 
     /**
-     * @Route("/{url}", defaults={"url"="/"}, requirements={"url"=".+"})
-     * @Method("GET")
      * @Template()
      */
     public function showAction($url = "/")
