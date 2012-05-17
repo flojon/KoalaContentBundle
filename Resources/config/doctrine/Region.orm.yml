@@ -1,0 +1,17 @@
+Koala\ContentBundle\Entity\Region:
+    type: entity
+    table: regions
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 100
+        content:
+            type: text
+    manyToOne:
+        page:
+            targetEntity: Koala\ContentBundle\Entity\Page
+            inversedBy: regions

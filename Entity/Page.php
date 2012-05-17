@@ -5,84 +5,30 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Knp\Menu\NodeInterface;
 
-/**
- * @Gedmo\Tree(type="nested")
- * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\NestedTreeRepository")
- */
 class Page implements NodeInterface
 {
-	/**
-	 * @ORM\Id
-	 * @ORM\Column(type="integer")
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
 	protected $id;
 
-	/**
-	 * @Gedmo\TreeLeft
-	 * @ORM\Column(name="lft", type="integer")
-	 */
 	private $lft;
 
-	/**
-	 * @Gedmo\TreeLevel
-	 * @ORM\Column(name="lvl", type="integer")
-	 */
 	private $lvl;
 
-	/**
-	 * @Gedmo\TreeRight
-	 * @ORM\Column(name="rgt", type="integer")
-	 */
 	private $rgt;
 
-	/**
-	 * @Gedmo\TreeRoot
-	 * @ORM\Column(name="root", type="integer", nullable=true)
-	 */
 	private $root;
 
-	/**
-	 * @Gedmo\TreeParent
-	 * @ORM\ManyToOne(targetEntity="Page", inversedBy="children")
-	 * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="SET NULL")
-	 */
 	private $parent;
 
-	/**
-	 * @ORM\OneToMany(targetEntity="Page", mappedBy="parent")
-	 * @ORM\OrderBy({"lft" = "ASC"})
-	 */
 	private $children;
 
-	/**
-	 * @ORM\Column(type="string", length=100)
-	 * @Assert\NotBlank
-	 */
 	protected $menu_title;
 
-	/**
-	 * @Gedmo\Slug(fields={"menu_title"})
-	 * @ORM\Column(length=128, unique=true)
-	 */
 	protected $slug;
 
-	/**
-     * @ORM\Column(type="string", length=128, unique=true)
-	 * @Assert\NotBlank
-	 */
 	protected $url;
 	
-	/**
-	 * Specifies template used for rendering the page
-	 *
-	 * @ORM\Column(type="string")
-	 */
 	protected $layout;
 
-	/**
-	 * @ORM\OneToMany(targetEntity="Region", mappedBy="page")
-	 */
 	protected $regions;
 
 	/**

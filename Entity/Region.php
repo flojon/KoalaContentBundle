@@ -2,32 +2,14 @@
 namespace Koala\ContentBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity
- */
 class Region
 {
-	/**
-	 * @ORM\Id
-	 * @ORM\Column(type="integer")
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
 	protected $id;
 
-	/**
-	 * @ORM\Column(type="string", length=100)
-	 */
 	protected $name;
 
-	/**
-	 * @ORM\Column(type="text")
-	 */
 	protected $content;
 	
-	/**
-	 * @ORM\ManyToOne(targetEntity="Page", inversedBy="regions")
-	 * @ORM\JoinColumn(name="page_id", referencedColumnName="id")
-	 */
 	protected $page;
 
 	/**
