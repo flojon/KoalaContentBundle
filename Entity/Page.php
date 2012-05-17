@@ -72,11 +72,6 @@ class Page implements NodeInterface
 	 * @Assert\NotBlank
 	 */
 	protected $url;
-
-	/**
-	 * @ORM\Column(type="string")
-	 */
-	protected $background_url;
 	
 	/**
 	 * Specifies template used for rendering the page
@@ -163,46 +158,6 @@ class Page implements NodeInterface
 	public function getSlug()
 	{
 		return $this->slug;
-	}
-
-	/**
-	 * Set content
-	 *
-	 * @param text $content
-	 */
-	public function setContent($content)
-	{
-		$this->content = $content;
-	}
-
-	/**
-	 * Get content
-	 *
-	 * @return text
-	 */
-	public function getContent()
-	{
-		return $this->content;
-	}
-
-	/**
-	 * Set background_url
-	 *
-	 * @param string $backgroundUrl
-	 */
-	public function setBackgroundUrl($backgroundUrl)
-	{
-		$this->background_url = $backgroundUrl;
-	}
-
-	/**
-	 * Get background_url
-	 *
-	 * @return string
-	 */
-	public function getBackgroundUrl()
-	{
-		return $this->background_url;
 	}
 
 	public function __construct()
