@@ -50,10 +50,15 @@ class Page implements NodeInterface
 	 */
 	function getOptions()
 	{
-		return array(
-			'route'=>'koala_content_page_show',
-			'routeParameters' => array('url' => $this->getUrl()),
-		);
+	    $options = array();
+
+	    if (($url = $this->getUrl()) !== null)
+	    {
+	        $options['route'] = 'koala_content_page_show';
+	        $options['routeParameters'] = array('url' => $url);
+	    }
+
+	    return $options;
 	}
 
 	/**

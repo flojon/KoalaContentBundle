@@ -37,6 +37,7 @@ Koala\ContentBundle\Entity\Page:
             type: string
             length: 128
             unique: true
+            nullable: true
         layout:
             type: string
     oneToMany:
