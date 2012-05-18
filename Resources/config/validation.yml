@@ -1,6 +1,6 @@
 Koala\ContentBundle\Entity\Page:
     properties:
-        menu_title:
+        menuTitle:
             - NotBlank: ~
         url:
             - NotBlank: ~

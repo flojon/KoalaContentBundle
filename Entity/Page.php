@@ -21,7 +21,7 @@ class Page implements NodeInterface
 
 	private $children;
 
-	protected $menu_title;
+	protected $menuTitle;
 
 	protected $slug;
 
@@ -73,7 +73,7 @@ class Page implements NodeInterface
 	 */
 	public function setMenuTitle($menuTitle)
 	{
-		$this->menu_title = $menuTitle;
+		$this->menuTitle = $menuTitle;
 	}
 
 	/**
@@ -83,7 +83,7 @@ class Page implements NodeInterface
 	 */
 	public function getMenuTitle()
 	{
-		return $this->menu_title;
+		return $this->menuTitle;
 	}
 
 	/**

@@ -23,7 +23,7 @@ Koala\ContentBundle\Entity\Page:
             type: integer
             nullable: true
             gedmo: [treeRoot]
-        menu_title:
+        menuTitle:
             type: string
             length: 100
         slug:
@@ -32,7 +32,7 @@ Koala\ContentBundle\Entity\Page:
             unique: true
             gedmo:
                 slug: 
-                    fields: [menu_title]
+                    fields: [menuTitle]
         url:
             type: string
             length: 128
