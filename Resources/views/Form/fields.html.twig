@@ -1,0 +1,9 @@
+{% block field_row %}
+{% spaceless %}
+    <li>
+        {{ form_label(form, label|default(null)) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+    </li>
+{% endspaceless %}
+{% endblock field_row %}
