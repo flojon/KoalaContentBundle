@@ -1,1 +1,5 @@
-{% include 'KoalaContentBundle:Page:_form.html.twig' with {'action': path('koala_content_page_create')} %}
+{% extends 'KoalaContentBundle:Page:_form.html.twig' %}
+
+{% block action %}{{path('koala_content_page_create')}}{% endblock %}
+
+{% block commit_text %}Create{% endblock %}

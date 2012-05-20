@@ -1,0 +1,7 @@
+form fieldset.buttons .commit input.remove {
+  background-color: #BD362F;
+}
+
+form fieldset.buttons .commit input.remove:hover {
+  background-color: #942A25;
+}

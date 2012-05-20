@@ -1,5 +1,30 @@
-<form action="{{ action }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
+{% form_theme form 'KoalaContentBundle:Form:fields.html.twig' %}
 
-    <input type="submit" />
+<form action="{{block('action')}}" method="post" {{ form_enctype(form) }} style="width: 600px">
+	<div class="mercury-display-pane-container">
+		<div class="mercury-display-pane">
+			<fieldset class="inputs">
+				<legend><span>Page options</span></legend>
+				<ol>
+				    {{ form_errors(form) }}
+					{{form_row(form.parent)}}
+					{{form_row(form.menuTitle)}}
+					{{form_row(form.url)}}
+					{{form_row(form.slug)}}
+					{{form_row(form.layout)}}
+				</ol>
+			</fieldset>
+			{{form_rest(form)}}
+		</div>
+	</div>
+	<div class="mercury-display-controls">
+		<fieldset class="buttons">
+			<ol>
+				{% block buttons %}{% endblock %}
+				<li class="commit">
+					<input class="submit" name="commit" type="submit" value="{{block('commit_text')}}" />
+				</li>
+			</ol>
+		</fieldset>
+	</div>
 </form>
