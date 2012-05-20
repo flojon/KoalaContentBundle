@@ -22,3 +22,20 @@ $(document).on('click', "input[data-confirm]", function() {
             .submit(); // submit
     }
 });
+
+// Validate the HTMl5 required attribute
+$(document).on('submit', 'form', function() {
+    var errors = $(this).find('input[required]') // get all required input fields
+        .removeClass('invalid') // if revalidating, remove error class
+        .filter(function() { // filter empty fields
+            return ($(this).val() == "");
+        })
+        .addClass('invalid') // add error class
+        .size(); // count errors
+
+    if (errors) {
+        alert("Some required fields are empty");
+    }
+
+    return !errors;
+});

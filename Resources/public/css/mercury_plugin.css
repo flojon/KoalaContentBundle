@@ -15,3 +15,12 @@ form fieldset.buttons .commit input.remove:hover {
   background-image: url('../images/icons/glyphicons_151_edit.png');
   background-position: 50% 12px !important;
 }
+
+form select.invalid,
+form input[type="text"].invalid,
+form input[type="password"].invalid,
+form textarea.invalid,
+form input.text.invalid {
+  border: 2px solid #FBB;
+  background-color: #FEE;
+}
