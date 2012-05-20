@@ -20,11 +20,11 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('koala_content');
 
-		$rootNode
-			->children()
-				->scalarNode('editor_role')->defaultValue('ROLE_ADMIN')->end()
-			->end()
-		;
+        $rootNode
+            ->children()
+                ->scalarNode('editor_role')->defaultValue('ROLE_ADMIN')->end()
+            ->end()
+        ;
 
         return $treeBuilder;
     }

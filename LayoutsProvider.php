@@ -15,6 +15,7 @@ class LayoutsProvider
         if ($row == null)
             $row = $this->layouts;
         else if (isset($row['name']))
+
             return $row['name'];
 
         return array_map(array($this, 'getChoices'), $row);
@@ -23,11 +24,12 @@ class LayoutsProvider
     public function getTemplate($layout)
     {
         if (isset($this->layouts[$layout]))
+
             return $this->layouts[$layout]['template'];
 
-        foreach ($this->layouts as $sublayout)
-        {
+        foreach ($this->layouts as $sublayout) {
             if (isset($sublayout[$layout]))
+
                 return $sublayout[$layout]['template'];
         }
 

@@ -7,7 +7,7 @@ namespace Koala\ContentBundle\Twig;
 class MercuryExtension extends \Twig_Extension
 {
     var $defaults;
-    
+
     public function __construct($template, $defaults = array())
     {
         $this->defaults = array_merge(array(
@@ -40,7 +40,7 @@ class MercuryExtension extends \Twig_Extension
     public function mercury_region(\Twig_Environment $env, $context, $type, $name, $options = array())
     {
         $options = array_merge($this->defaults, $options);
-    
+
         $template = $options['template'];
         if (!$template instanceof \Twig_Template) {
             $template = $env->loadTemplate($template);

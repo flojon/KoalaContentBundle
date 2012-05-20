@@ -16,7 +16,7 @@ class SecuredController extends Controller
             // Security is not enabled so everyone can edit
             $can_edit = true;
         }
-		
-		return $can_edit;
+
+        return $can_edit;
     }
 }

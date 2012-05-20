@@ -1,84 +1,83 @@
 <?php
 namespace Koala\ContentBundle\Entity;
-use Doctrine\ORM\Mapping as ORM;
 
 class Region
 {
-	protected $id;
+    protected $id;
 
-	protected $name;
+    protected $name;
 
-	protected $content;
-	
-	protected $page;
+    protected $content;
 
-	/**
-	 * Get id
-	 *
-	 * @return integer 
-	 */
-	public function getId()
-	{
-		return $this->id;
-	}
+    protected $page;
 
-	/**
-	 * Set name
-	 *
-	 * @param string $name
-	 */
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
-	/**
-	 * Get name
-	 *
-	 * @return string 
-	 */
-	public function getName()
-	{
-		return $this->name;
-	}
+    /**
+     * Set name
+     *
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
-	/**
-	 * Set content
-	 *
-	 * @param text $content
-	 */
-	public function setContent($content)
-	{
-		$this->content = $content;
-	}
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
-	/**
-	 * Get content
-	 *
-	 * @return text 
-	 */
-	public function getContent()
-	{
-		return $this->content;
-	}
+    /**
+     * Set content
+     *
+     * @param text $content
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+    }
 
-	/**
-	 * Set page
-	 *
-	 * @param Koala\ContentBundle\Entity\Page $page
-	 */
-	public function setPage(\Koala\ContentBundle\Entity\Page $page)
-	{
-		$this->page = $page;
-	}
+    /**
+     * Get content
+     *
+     * @return text
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
 
-	/**
-	 * Get page
-	 *
-	 * @return Koala\ContentBundle\Entity\Page 
-	 */
-	public function getPage()
-	{
-		return $this->page;
-	}
+    /**
+     * Set page
+     *
+     * @param Koala\ContentBundle\Entity\Page $page
+     */
+    public function setPage(\Koala\ContentBundle\Entity\Page $page)
+    {
+        $this->page = $page;
+    }
+
+    /**
+     * Get page
+     *
+     * @return Koala\ContentBundle\Entity\Page
+     */
+    public function getPage()
+    {
+        return $this->page;
+    }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Helper class to encapsulate Mercury Region data 
+ * Helper class to encapsulate Mercury Region data
  *
  * @author Jonas Flodén
  */
@@ -25,8 +25,7 @@ class MercuryRegions implements \ArrayAccess, \Iterator
     public function offsetGet($offset)
     {
         $region = $this->regions[$offset];
-        switch ($region["type"])
-        {
+        switch ($region["type"]) {
         case "image":
             return $region['attributes']['src'];
         default:
@@ -53,6 +52,7 @@ class MercuryRegions implements \ArrayAccess, \Iterator
     public function current()
     {
         $offset = current($this->keys);
+
         return $this[$offset];
     }
 

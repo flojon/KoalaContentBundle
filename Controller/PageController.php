@@ -3,13 +3,9 @@
 namespace Koala\ContentBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Koala\ContentBundle\Entity\Page;
-use Koala\ContentBundle\Entity\Region;
 use Koala\ContentBundle\Type\PageType;
 
 class PageController extends SecuredController
@@ -40,11 +36,11 @@ class PageController extends SecuredController
 
         $form->bindRequest($request);
 
-        if ($form->isValid())
-        {
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($page);
             $em->flush();
+
             return $this->redirect($this->generateUrl('koala_content_page_show', array('url'=>$page->getUrl())));
         }
 
@@ -77,8 +73,7 @@ class PageController extends SecuredController
 
         $form->bindRequest($request);
 
-        if ($form->isValid())
-        {
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getEntityManager();
             $em->flush();
 
@@ -113,16 +108,14 @@ class PageController extends SecuredController
         $page = $this->getPage($url);
 
         $regions = array();
-        foreach ($page->getRegions() as $r)
-        {
+        foreach ($page->getRegions() as $r) {
             $regions[$r->getName()] = $r->getContent();
         }
 
         $factory = $this->container->get('knp_menu.factory');
         $menu = $factory->createItem('root');
         $menu->setCurrentUri($this->container->get('request')->getRequestUri());
-        foreach ($repo->getRootNodes() as $root)
-        {
+        foreach ($repo->getRootNodes() as $root) {
             $menu->addChild($factory->createFromNode($root));
         }
 

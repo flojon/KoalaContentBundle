@@ -1,8 +1,6 @@
 <?php
 namespace Koala\ContentBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -16,10 +14,10 @@ class MercuryController extends SecuredController
      */
     public function imagesAction(Request $request)
     {
-		if (!$this->can_edit()) {
-			throw new \Exception('Permission denied');
-		}
-		
+        if (!$this->can_edit()) {
+            throw new \Exception('Permission denied');
+        }
+
         if (!$request->isXmlHttpRequest()) { // Ajax Call?
             throw new \Exception('This URL should only be called using AJAX');
         }
@@ -44,10 +42,10 @@ class MercuryController extends SecuredController
      */
     public function contentAction(Request $request, $url = "/")
     {
-		if (!$this->can_edit()) {
-			throw new \Exception('Permission denied');
-		}
-		
+        if (!$this->can_edit()) {
+            throw new \Exception('Permission denied');
+        }
+
         if (!$request->isXmlHttpRequest()) { // Ajax Call?
             throw new \Exception('This URL should only be called using AJAX');
         }
@@ -59,23 +57,19 @@ class MercuryController extends SecuredController
         }
 
         $content = $request->get('content');
-        if (!empty($content))
-        {
+        if (!empty($content)) {
             $regions = new MercuryRegions($content);
 
-            foreach ($page->getRegions() as $region)
-            {
+            foreach ($page->getRegions() as $region) {
                 $name = $region->getName();
                 if (empty($regions[$name])) {
                     $em->remove($region);
-                }
-                else {
+                } else {
                     $region->setContent($regions[$name]);
                 }
                 unset($regions[$name]);
             }
-            foreach ($regions as $name=>$content)
-            {
+            foreach ($regions as $name=>$content) {
                 $region = new Region();
                 $region->setName($name);
                 $region->setContent($content);
@@ -88,13 +82,14 @@ class MercuryController extends SecuredController
 
         $response = new Response("");
         $response->headers->set('Content-Type', 'application/json');
+
         return $response;
     }
 
     /**
      * Will create unique filename in directory by appending a number to basename
      *
-     * @param string $dir directory to look in
+     * @param string $dir      directory to look in
      * @param string $filename basename to use for unique filename
      * @return string unique filename in supplied directory
      * @author Jonas Flodén

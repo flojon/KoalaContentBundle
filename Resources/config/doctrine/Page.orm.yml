@@ -31,7 +31,7 @@ Koala\ContentBundle\Entity\Page:
             length: 128
             unique: true
             gedmo:
-                slug: 
+                slug:
                     fields: [menuTitle]
         url:
             type: string
@@ -58,4 +58,3 @@ Koala\ContentBundle\Entity\Page:
                 onDelete: SET NULL
             gedmo:
                 - treeParent
-    

@@ -11,7 +11,7 @@ class LayoutsFormType extends AbstractType
     {
         $this->provider = $provider;
     }
-    
+
     public function getDefaultOptions(array $options)
     {
         return array(
