@@ -6,6 +6,14 @@ parameters:
     mercury_twig_extension.class: Koala\ContentBundle\Twig\MercuryExtension
     mercury_twig_extension.template: 'KoalaContentBundle::mercury_region.html.twig'
     mercury_twig_extension.defaults: {tag: 'div', default: ''}
+    mercury_twig_extension.package:
+        javascripts:
+            - mercury/javascripts/mercury.min.js
+            - mercury/javascripts/mercury_dialogs.js
+            - bundles/koalacontent/js/mercury_plugin.js
+        stylesheets:
+            - mercury/stylesheets/mercury.bundle.css
+            - bundles/koalacontent/css/mercury_plugin.css
 
 services:
     layouts_provider:

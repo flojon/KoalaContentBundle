@@ -7,7 +7,14 @@
 	<meta name="mercury-content" content="{{path('koala_content_mercury_content', {'url': page.url})}}">
 	<meta name="mercury-new" content="{{path('koala_content_page_new')}}"/>
 	<meta name="mercury-edit" content="{{path('koala_content_page_edit', {'url': page.url})}}"/>
-	<script src="{{asset('bundles/koalacontent/js/mercury_package.js')}}" type="text/javascript" charset="utf-8"></script>
-	<script src="{{asset('mercury/javascripts/mercury_loader.js')}}?visible=false&pack=bundled&src={{asset('mercury')}}" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" charset="utf-8">
+		window.mercuryPackages = {
+		    bundled: {
+		        javascripts: '{{mercury.javascripts|join(',')}}',
+		        stylesheets: '{{mercury.stylesheets|join(',')}}'
+		    }
+		};  
+	</script>
+	<script src="{{asset('mercury/javascripts/mercury_loader.js')}}?visible=false&pack=bundled&src={{app.request.basepath}}" type="text/javascript" charset="utf-8"></script>
 	{% endif %}
 {% endblock %}
