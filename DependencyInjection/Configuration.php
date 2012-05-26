@@ -4,6 +4,7 @@ namespace Koala\ContentBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 
 /**
  * This is the class that validates and merges configuration from your app/config files
@@ -26,6 +27,28 @@ class Configuration implements ConfigurationInterface
             ->end()
         ;
 
+        $this->addMercurySection($rootNode);
+
         return $treeBuilder;
+    }
+    
+    protected function addMercurySection(ArrayNodeDefinition $rootNode)
+    {
+        $rootNode
+            ->children()
+                ->arrayNode('mercury')
+                    ->children()
+                        ->arrayNode('javascripts')
+                            ->prototype('scalar')
+                            ->end()
+                        ->end()
+                        ->arrayNode('stylesheets')
+                            ->prototype('scalar')
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
     }
 }
