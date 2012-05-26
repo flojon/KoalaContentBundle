@@ -23,5 +23,6 @@ services:
         arguments:
             - %mercury_twig_extension.template%
             - %mercury_twig_extension.defaults%
+            - %mercury_twig_extension.package%
         tags:
             - { name: twig.extension }

@@ -7,12 +7,21 @@ namespace Koala\ContentBundle\Twig;
 class MercuryExtension extends \Twig_Extension
 {
     var $defaults;
-
-    public function __construct($template, $defaults = array())
+    protected $mercury_package;
+    
+    public function __construct($template, $defaults = array(), $mercury_package)
     {
         $this->defaults = array_merge(array(
             'template' => $template,
         ), $defaults);
+        $this->mercury_package = $mercury_package;
+    }
+
+    public function getGlobals()
+    {
+        return array(
+            'mercury' => $this->mercury_package,
+        );
     }
 
     public function getFunctions()
