@@ -1,13 +1,16 @@
 {% extends '::base.html.twig' %}
 
+{% block stylesheets %}
+<link rel="stylesheet" href="{{asset('bundles/koalacontent/css/main.css')}}" type="text/css" media="screen" title="no title" charset="utf-8"/>
+{% endblock %}
+
 {% block body %}
-    {% block menu %}{{knp_menu_render(menu)}}{% endblock %}
-    {% block content %}
-        <h1 id="page-title" class="mercury-region" data-type="simple">{% if regions.title is defined %}{{regions.title}}{% endif %}</h1>
-        <div id="page-main" class="mercury-region" data-type="editable">
-            {% if regions.main is defined %}
-                {{regions.main|raw}}
-            {% endif %}
+        <div id="wrapper">
+            {% block menu %}<nav id="menu">{{knp_menu_render(menu.main_menu)}}</nav>{% endblock %}
+            {% block content %}
+            <div id="main">
+                {{mercury_editable('content')}}                
+            </div>
+            {% endblock %}
         </div>
-    {% endblock %}
 {% endblock %}
