@@ -1,7 +1,7 @@
 {
     "name": "koala/content-bundle",
     "description": "A simple Symfony 2 CMS bundle using Mercury Editor",
-    "keywords":     ["symfony, mercury, cms"],
+    "keywords":     ["symfony", "mercury", "cms"],
     "type":         "symfony-bundle",
     "license":      "MIT",
     "authors": [
