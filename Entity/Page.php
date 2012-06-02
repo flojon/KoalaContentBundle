@@ -37,7 +37,7 @@ class Page implements NodeInterface
      */
     function getName()
     {
-        return $this->getMenuTitle();
+        return $this->getSlug();
     }
 
     /**
@@ -47,7 +47,9 @@ class Page implements NodeInterface
      */
     function getOptions()
     {
-        $options = array();
+        $options = array(
+            'label' => $this->getMenuTitle(),
+        );
 
         if (($url = $this->getUrl()) !== null) {
             $options['route'] = 'koala_content_page_show';
