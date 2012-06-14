@@ -78,8 +78,9 @@ Install assets:
 
     php app/console assets:install --symlink web
 
-Install Mercury files under `web/mercury`. Currently it's recommended to use the master version which contains some important fixes.
-Download from [https://github.com/jejacks0n/mercury/zipball/master](https://github.com/jejacks0n/mercury/zipball/master) and then copy `stylesheets` and `javascripts` from the `distro` directory into `web/mercury`.
+Install Mercury files under `web/mercury`. It's recommended to use the newest release, currently 0.8. (See See [Mercury Downloads](https://github.com/jejacks0n/mercury/downloads))
+
+Download from [https://github.com/downloads/jejacks0n/mercury/mercury-v0.8.0.zip](https://github.com/downloads/jejacks0n/mercury/mercury-v0.8.0.zip) and extract to `web/mercury`.
 
 Next step is to setup the routing needed for the bundle to work. Add this to your `app/routing.yml`
 
