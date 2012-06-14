@@ -2,7 +2,7 @@
     {{block('content')}}
 {% endblock %}
 
-{% block editable %}
+{% block full %}
     {{block('content')}}
 {% endblock %}
 
@@ -23,12 +23,12 @@
 {% endblock %}
 
 {% block attr %}
-id="{{id}}" class="mercury-region
+id="{{id}}"
 {%- if class is defined %}
- {{class}}
-{%- endif %}"
+ class="{{class}}"
+{%- endif %}
 {%- if style is defined %}
  style="{{style}}"
 {%- endif %}
- data-type="{{type}}"
+ data-mercury="{{type}}"
 {%- endblock %}
