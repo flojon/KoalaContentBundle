@@ -1,11 +1,3 @@
-form fieldset.buttons .commit input.remove {
-  background-color: #BD362F;
-}
-
-form fieldset.buttons .commit input.remove:hover {
-  background-color: #942A25;
-}
-
 .mercury-primary-toolbar .mercury-newPage-button em, .mercury-expander-button[data-button="newPage"] em {
   background-image: url('../images/icons/glyphicons_036_file.png');
   background-position: 50% 12px !important;

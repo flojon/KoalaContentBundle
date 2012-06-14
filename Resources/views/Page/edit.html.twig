@@ -3,9 +3,7 @@
 {% block action %}{{path('koala_content_page_update', {'url': form.vars.value.url})}}{% endblock %}
 
 {% block buttons %}
-<li class="commit">
-	<input class="remove" type="button" value="Remove page" data-confirm="Are you sure you want to remove this page? This cannot be undone!" data-action="{{path('koala_content_page_delete', {'url': form.vars.value.url})}}"/>
-</li>
+<input class="btn btn-danger" type="button" value="Remove page" data-confirm="Are you sure you want to remove this page? This cannot be undone!" data-action="{{path('koala_content_page_delete', {'url': form.vars.value.url})}}"/>
 {% endblock %}
 
 {% block commit_text %}Save Page{% endblock %}
