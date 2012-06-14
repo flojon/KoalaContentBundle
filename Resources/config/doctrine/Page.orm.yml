@@ -48,6 +48,7 @@ Koala\ContentBundle\Entity\Page:
         regions:
             targetEntity: Koala\ContentBundle\Entity\Region
             mappedBy: page
+            cascade: [remove]
     manyToOne:
         parent:
             targetEntity: Koala\ContentBundle\Entity\Page
