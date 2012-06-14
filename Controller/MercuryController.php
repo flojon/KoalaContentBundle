@@ -56,9 +56,10 @@ class MercuryController extends SecuredController
             throw $this->createNotFoundException('Invalid URL');
         }
 
-        $content = $request->get('content');
+        $content = $request->getContent();        
         if (!empty($content)) {
-            $regions = new MercuryRegions($content);
+            $content = json_decode($content, true);
+            $regions = new MercuryRegions($content['content']);
 
             foreach ($page->getRegions() as $region) {
                 $name = $region->getName();

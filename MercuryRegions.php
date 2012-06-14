@@ -12,9 +12,9 @@ class MercuryRegions implements \ArrayAccess, \Iterator
     var $regions;
     var $keys;
 
-    function __construct($content)
+    function __construct($regions)
     {
-        $this->regions = json_decode($content, true);
+        $this->regions = $regions;
     }
 
     public function offsetExists($offset)
