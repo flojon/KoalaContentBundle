@@ -4,11 +4,13 @@
 	<div class="form-inputs mercury-display-pane-container">
 		<fieldset>
 			<legend><span>Page options</span></legend>
+			{{form_errors(form)}}
 			{{form_row(form.parent)}}
 			{{form_row(form.menuTitle)}}
 			{{form_row(form.url)}}
 			{{form_row(form.slug)}}
 			{{form_row(form.layout)}}
+			{{form_rest(form)}}
 		</fieldset>
 	</div>
 	<div class="form-actions mercury-display-controls">
