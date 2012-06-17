@@ -14,6 +14,8 @@ parameters:
         stylesheets:
             - mercury/stylesheets/mercury.bundle.css
             - bundles/koalacontent/css/mercury_plugin.css
+    menu_provider.class: Koala\ContentBundle\Service\EntityMenuProvider
+    menu_provider.entity: 'KoalaContentBundle:Page'
 
 services:
     layouts_provider:
@@ -34,3 +36,12 @@ services:
             - %mercury_twig_extension.package%
         tags:
             - { name: twig.extension }
+    menu_provider:
+        class: %menu_provider.class%
+        arguments:
+            - @service_container
+            - @knp_menu.factory
+            - @doctrine.orm.default_entity_manager
+            - %menu_provider.entity%
+        tags:
+            - { name: knp_menu.provider }
