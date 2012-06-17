@@ -6,7 +6,7 @@
 
 {% block body %}
         <div id="wrapper">
-            {% block menu %}<nav id="menu">{{knp_menu_render(menu.main_menu)}}</nav>{% endblock %}
+            {% block menu %}<nav id="menu">{{knp_menu_render('main_menu')}}</nav>{% endblock %}
             {% block content %}
             <div id="main">
                 {{mercury_full('content')}}                

@@ -112,16 +112,9 @@ class PageController extends SecuredController
             $regions[$r->getName()] = $r->getContent();
         }
 
-        $factory = $this->container->get('knp_menu.factory');
-        $menu = $factory->createItem('root');
-        $menu->setCurrentUri($this->container->get('request')->getRequestUri());
-        foreach ($repo->getRootNodes() as $root) {
-            $menu->addChild($factory->createFromNode($root));
-        }
-
         $template = $this->get('layouts_provider')->getTemplate($page->getLayout());
 
-        return array('page' => $page, 'regions' => $regions, 'menu'=>$menu, 'template' => $template, 'can_edit'=>$this->can_edit());
+        return array('page' => $page, 'regions' => $regions, 'template' => $template, 'can_edit'=>$this->can_edit());
     }
 
     protected function getPage($url)
