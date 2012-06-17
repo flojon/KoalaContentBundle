@@ -13,7 +13,7 @@
     "require": {
         "symfony/framework-bundle": "2.*",
         "knplabs/knp-menu": ">=1.0",
-        "knplabs/knp-menu-bundle": "dev-master",
+        "knplabs/knp-menu-bundle": "1.1.*",
         "stof/doctrine-extensions-bundle": ">=1.0"
     },
     "autoload":     {
