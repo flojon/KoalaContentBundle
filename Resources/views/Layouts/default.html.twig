@@ -9,8 +9,12 @@
             {% block menu %}<nav id="menu">{{knp_menu_render(menu.main_menu)}}</nav>{% endblock %}
             {% block content %}
             <div id="main">
-                {{mercury_editable('content')}}                
+                {{mercury_full('content')}}                
             </div>
             {% endblock %}
         </div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{asset('https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')}}" type="text/javascript" charset="utf-8"></script>
 {% endblock %}
