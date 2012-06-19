@@ -2,21 +2,22 @@
 KoalaContentBundle is a simple CMS built for the Symfony 2 framework using the amazing [Mercury Editor][1] as front end editor.
 
 ## Install using composer (Symfony 2.1)
-Add koala/content-bundle to composer.json. Currently there is only the dev-master version.
+Add koala/content-bundle to composer.json. Form Symfony 2.1 you need to orm-sf21 branch.
 
     "require": {
         ...
-        "koala/content-bundle": "dev-master"        
+        "koala/content-bundle": "dev-orm-sf21"        
     }
 
 Then run `composer update` to install KoalaContentBundle and all its requirements. Composer will automatically register the new namespaces.
 
 ## Install using vendors script (Symfony 2.0)
-If you're not using composer you can install using the `bin/vendors` script. Add the following to your deps file:
+If you're not using composer you can install using the `bin/vendors` script. For Symfony 2.0 you need to orm-sf20 branch. Add the following to your deps file:
 
     [KoalaContentBundle]
         git=http://github.com/flojon/KoalaContentBundle.git
         target=/bundles/Koala/ContentBundle
+        version=refs/remotes/origin/orm-sf20
     
     [KnpMenu]
         git=http://github.com/KnpLabs/KnpMenu
