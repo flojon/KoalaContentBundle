@@ -1,21 +1,24 @@
 {% extends 'form_div_layout.html.twig' %}
 
-{% block field_label %}
-{% spaceless %}
-    {% set attr = attr|merge({'class': attr.class|default('') ~ ' control-label'}) %}
-    {% set attr = attr|merge({'for': id}) %}
-    {{ block('generic_label') }}
-{% endspaceless %}
-{% endblock field_label %}
+{% block form_label %}
+{% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' control-label')|trim}) %}
+{{parent()}}
+{% endblock %}
 
-{% block field_row %}
+{% block form_row %}
 {% spaceless %}
     <div class="control-group">
         {{ form_label(form, label|default(null)) }}
-        {{ form_errors(form) }}
+        {#
+        If the child is a compound form, the errors are rendered inside
+        the container. See also block form_rows.
+        #}
+        {% if not compound %}
+            {{ form_errors(form) }}
+        {% endif %}
         <div class="controls">
             {{ form_widget(form) }}            
         </div>
     </div>
 {% endspaceless %}
-{% endblock field_row %}
+{% endblock form_row %}
