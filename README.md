@@ -18,8 +18,9 @@ Register the new bundles in your `app/AppKernel.php` file:
     {
         $bundles = array(
             ...
-			new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
-	        new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new Symfony\Cmf\Bundle\RoutingExtraBundle\SymfonyCmfRoutingExtraBundle(),
             new Koala\ContentBundle\KoalaContentBundle(),
         );
     
@@ -66,6 +67,7 @@ Now fire up your browser and start editing!
 * [Stof/DoctrineExtensionsBundle](https://github.com/stof/StofDoctrineExtensionsBundle)
 * [KnpMenu](https://github.com/KnpLabs/KnpMenu)
 * [KnpMenuBundle](https://github.com/KnpLabs/KnpMenuBundle)
+* [SymfonyCMF Routing](https://github.com/symfony-cmf/Routing)
 * [Mercury Editor][1]
 
 [1]: http://jejacks0n.github.com/mercury/ "Mercury Editor"
