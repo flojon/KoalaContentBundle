@@ -18,18 +18,17 @@ class SetupCommand extends ContainerAwareCommand
         $this
             ->setName('koala_content:setup')
             ->setDescription('Setup default content for KoalaContentBundle')
-            ->addOption('reset', null, InputOption::VALUE_NONE, 'Reset current contents in database')
+            ->addOption('reset', null, InputOption::VALUE_NONE, 'Reset current contents in database (using doctrine:schema:drop)')
         ;
     }
  
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /* Check for contents */
         $doctrine = $this->getContainer()->get('doctrine');
         $em = $doctrine->getEntityManager();
 
         if ($input->getOption('reset')) {
-            $output->writeln("<info>Running 'doctrine:schema:drop'</info>");
+            $output->writeln("<info>Resetting schema using 'doctrine:schema:drop'</info>");
             $command = $this->getApplication()->find('doctrine:schema:drop');
 
             $arguments = array(
@@ -39,25 +38,41 @@ class SetupCommand extends ContainerAwareCommand
 
             $input = new ArrayInput($arguments);
             $returnCode = $command->run($input, $output);
-        } else if ($em->getRepository('KoalaContentBundle:MenuItem')->findAll()
-                    || $em->getRepository('KoalaContentBundle:Page')->findAll()
-                    || $em->getRepository('KoalaContentBundle:Route')->findAll()
-                    || $em->getRepository('KoalaContentBundle:Region')->findAll()) {
-            $output->writeln("<error>Your database already has content, use '--reset' to reset it</error>");
-            return;
         }
         
-        /* Update the database */
-        $output->writeln("<info>Running 'doctrine:schema:update'</info>");
-        $command = $this->getApplication()->find('doctrine:schema:update');
+        /* Validate schema */
+        $output->writeln("<info>Validating schema using 'doctrine:schema:validate'</info>");
+        $command = $this->getApplication()->find('doctrine:schema:validate');
 
         $arguments = array(
-            'command' => 'doctrine:schema:update',
-            '--force'  => true,
+            'command' => 'doctrine:schema:validate',
         );
 
         $input = new ArrayInput($arguments);
         $returnCode = $command->run($input, $output);
+
+        if ($returnCode >= 2) {
+            /* Update the database */
+            $output->writeln("<info>Updating schema using 'doctrine:schema:update'</info>");
+            $command = $this->getApplication()->find('doctrine:schema:update');
+
+            $arguments = array(
+                'command' => 'doctrine:schema:update',
+                '--force'  => true,
+            );
+
+            $input = new ArrayInput($arguments);
+            $returnCode = $command->run($input, $output);    
+        }
+
+        /* Check for contents */
+        if ($em->getRepository('KoalaContentBundle:MenuItem')->findAll()
+                || $em->getRepository('KoalaContentBundle:Page')->findAll()
+                || $em->getRepository('KoalaContentBundle:Route')->findAll()
+                || $em->getRepository('KoalaContentBundle:Region')->findAll()) {
+            $output->writeln("<error>Your database already has content, use '--reset' to reset it</error>");
+            return;
+        }
 
         /* Add a default Main Menu and a Welcome page */
         $repository = $em->getRepository('KoalaContentBundle:MenuItem');
