@@ -3,6 +3,11 @@ Koala\ContentBundle\Entity\MenuItem:
         label:
             - NotBlank: ~
 
+Koala\ContentBundle\Entity\Route:
+    properties:
+        pattern:
+            - NotBlank: ~
+
 Koala\ContentBundle\Entity\Page:
     properties:
         title:
