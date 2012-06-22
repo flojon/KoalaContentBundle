@@ -21,6 +21,8 @@ class MenuItem implements NodeInterface
 
     protected $label;
 
+    protected $uri;
+
     protected $page;
 
     public function __toString()
@@ -49,6 +51,7 @@ class MenuItem implements NodeInterface
     {
         $options = array(
             'label' => $this->getLabel(),
+            'uri' => $this->getUri(),
         );
 
         if ($this->page !== null) {
@@ -137,6 +140,16 @@ class MenuItem implements NodeInterface
     public function addMenuItem(\Koala\ContentBundle\Entity\MenuItem $menuItem)
     {
         $this->children[] = $menuItem;
+    }
+
+    public function getUri()
+    {
+        return $this->uri;
+    }
+
+    public function setUri($uri)
+    {
+        $this->uri = $uri;
     }
 
     public function getPage()

@@ -26,6 +26,10 @@ Koala\ContentBundle\Entity\MenuItem:
         label:
             type: string
             length: 100
+        uri:
+            type: string
+            length: 100
+            nullable: TRUE
     oneToMany:
         children:
             targetEntity: Koala\ContentBundle\Entity\MenuItem
