@@ -102,7 +102,9 @@ class PageController extends SecuredController
         $em->remove($page);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('koala_content_page_show'));
+        return $this->redirect($this->generateUrl(null, array(
+            'route' => $this->getDoctrine()->getRepository('KoalaContentBundle:Route')->findOneByPattern('/')
+        )));
     }
 
     /**

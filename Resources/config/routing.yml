@@ -38,8 +38,8 @@ koala_content_page_update:
         url: .+
 
 koala_content_page_delete:
-    pattern: /delete/{url}
-    defaults: {_controller: KoalaContentBundle:Page:delete, url: /}
+    pattern: /delete/{page_id}
+    defaults: {_controller: KoalaContentBundle:Page:delete}
     requirements:
         _method: POST
         url: .+
