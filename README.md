@@ -34,12 +34,6 @@ Enable the Doctrine Tree extension in your `app/config.yml` file:
             default:
                 tree: true
 
-Update the database schema:
-
-    php app/console doctrine:schema:update --force
-    
-Change `--force` to `--dump-sql` if you rather want a SQL file, with all the changes, that you can run manually.
-
 Install assets:
 
     php app/console assets:install --symlink web
@@ -56,7 +50,7 @@ Next step is to setup the routing needed for the bundle to work. Add this to you
 
 If you rather want to content pages under a separate section you can change the prefix to something like `/cms`
 
-The last step is to load some default content using the setup command:
+The last step is to update the database schema and load some default content using the setup command:
 
     php app/console koala_content:setup
 
