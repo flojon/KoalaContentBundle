@@ -23,6 +23,8 @@ class MenuItem implements NodeInterface
 
     protected $uri;
 
+    protected $route;
+
     protected $page;
 
     public function __toString()
@@ -54,9 +56,12 @@ class MenuItem implements NodeInterface
             'uri' => $this->getUri(),
         );
 
-        if ($this->page !== null) {
-            $options['route'] = 'koala_content_page_show';
-            $options['routeParameters'] = array('url' => $this->page->getUrl());
+        if (!empty($this->route) || !empty($this->page)) {
+            $options['route'] = 'dynamic_router';
+            $options['routeParameters'] = array(
+                'route' => $this->route,
+                'content' => $this->page,
+            );
         }
 
         return $options;
@@ -150,6 +155,16 @@ class MenuItem implements NodeInterface
     public function setUri($uri)
     {
         $this->uri = $uri;
+    }
+
+    public function getRoute()
+    {
+        return $this->route;
+    }
+
+    public function setRoute(Route $route)
+    {
+        $this->route = $route;
     }
 
     public function getPage()

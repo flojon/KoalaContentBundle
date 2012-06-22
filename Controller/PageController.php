@@ -5,6 +5,8 @@ namespace Koala\ContentBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
+use Koala\ContentBundle\Entity\Page;
+use Koala\ContentBundle\Entity\Route;
 use Koala\ContentBundle\Entity\MenuItem;
 use Koala\ContentBundle\Type\MenuItemType;
 
@@ -19,7 +21,10 @@ class PageController extends SecuredController
             throw new \Exception('Permission denied');
         }
 
+        $page = new Page();
         $menuItem = new MenuItem();
+        $page->addRoute(new Route());
+        $menuItem->setPage($page);
         $form = $this->createForm(new MenuItemType(), $menuItem);
 
         return array('form'=>$form->createView());
@@ -31,7 +36,10 @@ class PageController extends SecuredController
             throw new \Exception('Permission denied');
         }
 
+        $page = new Page();
         $menuItem = new MenuItem();
+        $page->addRoute(new Route());
+        $menuItem->setPage($page);
         $form = $this->createForm(new MenuItemType(), $menuItem);
 
         $form->bindRequest($request);
@@ -41,7 +49,7 @@ class PageController extends SecuredController
             $em->persist($menuItem);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('koala_content_page_show', array('url'=>$menuItem->getPage()->getUrl())));
+            return $this->redirect($this->generateUrl(null, array('content'=>$menuItem->getPage())));
         }
 
         return $this->render('KoalaContentBundle:Page:new.html.twig', array('form'=>$form->createView()));
@@ -77,7 +85,7 @@ class PageController extends SecuredController
             $em = $this->getDoctrine()->getEntityManager();
             $em->flush();
 
-            return $this->redirect($this->generateUrl('koala_content_page_show', array('url'=>$menuItem->getPage()->getUrl())));
+            return $this->redirect($this->generateUrl(null, array('content'=>$menuItem->getPage())));
         }
 
         return $this->render('KoalaContentBundle:Page:edit.html.twig', array('form'=>$form->createView()));
@@ -100,25 +108,16 @@ class PageController extends SecuredController
     /**
      * @Template()
      */
-    public function showAction($url = "/")
+    public function showAction($contentDocument)
     {
-        $repo = $this->getDoctrine()
-            ->getRepository('KoalaContentBundle:Page');
-
-        $page = $this->getDoctrine()->getRepository('KoalaContentBundle:Page')->findOneByUrl($url);
-
-        if (!$page) {
-            throw $this->createNotFoundException('404 - Not found!');
-        }
-
         $regions = array();
-        foreach ($page->getRegions() as $r) {
+        foreach ($contentDocument->getRegions() as $r) {
             $regions[$r->getName()] = $r->getContent();
         }
 
-        $template = $this->get('layouts_provider')->getTemplate($page->getLayout());
+        $template = $this->get('layouts_provider')->getTemplate($contentDocument->getLayout());
 
-        return array('page' => $page, 'regions' => $regions, 'template' => $template, 'can_edit'=>$this->can_edit());
+        return array('page' => $contentDocument, 'regions' => $regions, 'template' => $template, 'can_edit'=>$this->can_edit());
     }
 
     protected function getPage($page_id)

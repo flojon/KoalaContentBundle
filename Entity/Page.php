@@ -1,21 +1,21 @@
 <?php
 namespace Koala\ContentBundle\Entity;
 
-class Page
+use Symfony\Cmf\Component\Routing\RouteAwareInterface;
+
+class Page implements RouteAwareInterface
 {
     protected $id;
 
     protected $title;
-
-    protected $slug;
-
-    protected $url;
 
     protected $layout;
 
     protected $regions;
 
     protected $menuItems;
+
+    protected $routes;
 
     public function getId()
     {
@@ -32,29 +32,10 @@ class Page
         return $this->title;
     }
 
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
     public function __construct()
     {
         $this->regions = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->routes = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function __toString()
@@ -88,24 +69,20 @@ class Page
         return $this->menuItems[0];
     }
 
-    /**
-     * Set url
-     *
-     * @param string $url
-     */
-    public function setUrl($url)
+    public function getFirstRoute()
     {
-        $this->url = $url;
+        return $this->routes[0];
     }
 
-    /**
-     * Get url
-     *
-     * @return string
-     */
-    public function getUrl()
+    public function getRoutes()
     {
-        return $this->url;
+        return $this->routes->toArray();
+    }
+
+    public function addRoute(Route $route)
+    {
+        $route->setPage($this);
+        $this->routes[] = $route;
     }
 
     /**

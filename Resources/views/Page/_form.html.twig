@@ -3,13 +3,15 @@
 <form action="{{block('action')}}" method="post" {{ form_enctype(form) }} class="form-horizontal" style="width: 600px">
 	<div class="form-inputs mercury-display-pane-container">
 		<fieldset>
-			<legend><span>Page options</span></legend>
+			<legend><span>Menu options</span></legend>
 			{{form_errors(form)}}
 			{{form_row(form.parent)}}
 			{{form_row(form.label)}}
+        </fieldset>
+		<fieldset>
+			<legend><span>Page options</span></legend>
 			{{form_row(form.page.title)}}
-			{{form_row(form.page.url)}}
-			{{form_row(form.page.slug)}}
+			{{form_row(form.page.routes[0].pattern)}}
 			{{form_row(form.page.layout)}}
 			{{form_rest(form)}}
 		</fieldset>

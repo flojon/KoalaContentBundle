@@ -12,10 +12,6 @@ Koala\ContentBundle\Entity\Page:
     properties:
         title:
             - NotBlank: ~
-        slug:
-            - NotBlank: ~
-        url:
-            - NotBlank: ~
         layout:
             - NotBlank: ~
 

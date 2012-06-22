@@ -37,6 +37,10 @@ Koala\ContentBundle\Entity\MenuItem:
             orderBy: {lft: ASC}
             cascade: [persist, remove]
     manyToOne:
+        route:
+            targetEntity: Koala\ContentBundle\Entity\Route
+            inversedBy: menuItems
+            cascade: [persist]
         page:
             targetEntity: Koala\ContentBundle\Entity\Page
             inversedBy: menuItems

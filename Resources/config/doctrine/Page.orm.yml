@@ -9,18 +9,6 @@ Koala\ContentBundle\Entity\Page:
         title:
             type: string
             length: 100
-        slug:
-            type: string
-            length: 128
-            unique: true
-            gedmo:
-                slug:
-                    fields: [title]
-        url:
-            type: string
-            length: 128
-            unique: true
-            nullable: true
         layout:
             type: string
     oneToMany:
@@ -32,3 +20,7 @@ Koala\ContentBundle\Entity\Page:
             targetEntity: Koala\ContentBundle\Entity\MenuItem
             mappedBy: page
             cascade: [remove]
+        routes:
+            targetEntity: Koala\ContentBundle\Entity\Route
+            mappedBy: page
+            cascade: [remove, persist]

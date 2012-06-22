@@ -43,10 +43,3 @@ koala_content_page_delete:
     requirements:
         _method: POST
         url: .+
-
-koala_content_page_show:
-    pattern: /{url}
-    defaults: {_controller: KoalaContentBundle:Page:show, url: /}
-    requirements:
-        _method: GET
-        url: .+
