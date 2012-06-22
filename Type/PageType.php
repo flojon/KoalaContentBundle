@@ -10,18 +10,17 @@ class PageType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('parent', 'entity', array(
-            'class'=>'KoalaContentBundle:Page',
-            'query_builder' =>
-                function(NestedTreeRepository $er) {
-                    return $er->childrenQueryBuilder();
-                }
-            )
-        );
-        $builder->add('menuTitle');
+        $builder->add('title');
         $builder->add('url');
         $builder->add('slug');
         $builder->add('layout', 'layouts');
+    }
+
+    public function getDefaultOptions()
+    {
+        return array(
+            'data_class' => 'Koala\ContentBundle\Entity\Page',
+        );
     }
 
     public function getName()

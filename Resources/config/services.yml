@@ -15,7 +15,7 @@ parameters:
             - mercury/stylesheets/mercury.bundle.css
             - bundles/koalacontent/css/mercury_plugin.css
     menu_provider.class: Koala\ContentBundle\Service\EntityMenuProvider
-    menu_provider.entity: 'KoalaContentBundle:Page'
+    menu_provider.entity: 'KoalaContentBundle:MenuItem'
 
 services:
     layouts_provider:

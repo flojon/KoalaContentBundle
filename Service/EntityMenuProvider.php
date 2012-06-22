@@ -35,7 +35,7 @@ class EntityMenuProvider implements MenuProviderInterface
      */
     function get($name, array $options = array())
     {
-        $node = $this->em->getRepository($this->className)->findOneBySlug($name);
+        $node = $this->em->getRepository($this->className)->findOneByLabel($name);
         if (!$node)
             throw new \InvalidArgumentException(sprintf('The menu "%s" is not defined.', $name));
         
@@ -54,7 +54,7 @@ class EntityMenuProvider implements MenuProviderInterface
      */
     function has($name, array $options = array())
     {
-        $node = $this->em->getRepository($this->className)->findBySlug($name);
+        $node = $this->em->getRepository($this->className)->findOneByLabel($name);
 
         return !!$node;
     }

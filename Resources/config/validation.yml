@@ -1,6 +1,17 @@
+Koala\ContentBundle\Entity\MenuItem:
+    properties:
+        label:
+            - NotBlank: ~
+
 Koala\ContentBundle\Entity\Page:
     properties:
-        menuTitle:
+        title:
+            - NotBlank: ~
+        slug:
+            - NotBlank: ~
+        url:
+            - NotBlank: ~
+        layout:
             - NotBlank: ~
 
 Koala\ContentBundle\Entity\Region:

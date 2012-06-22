@@ -1,24 +1,11 @@
 <?php
 namespace Koala\ContentBundle\Entity;
-use Knp\Menu\NodeInterface;
 
-class Page implements NodeInterface
+class Page
 {
     protected $id;
 
-    private $lft;
-
-    private $lvl;
-
-    private $rgt;
-
-    private $root;
-
-    private $parent;
-
-    private $children;
-
-    protected $menuTitle;
+    protected $title;
 
     protected $slug;
 
@@ -28,65 +15,21 @@ class Page implements NodeInterface
 
     protected $regions;
 
-    /**
-     * Get the name of the node
-     *
-     * Each child of a node must have a unique name
-     *
-     * @return string
-     */
-    function getName()
-    {
-        return $this->getSlug();
-    }
+    protected $menuItems;
 
-    /**
-     * Get the options for the factory to create the item for this node
-     *
-     * @return array
-     */
-    function getOptions()
-    {
-        $options = array(
-            'label' => $this->getMenuTitle(),
-        );
-
-        if (($url = $this->getUrl()) !== null) {
-            $options['route'] = 'koala_content_page_show';
-            $options['routeParameters'] = array('url' => $url);
-        }
-
-        return $options;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * Set menu_title
-     *
-     * @param string $menuTitle
-     */
-    public function setMenuTitle($menuTitle)
+    public function setTitle($title)
     {
-        $this->menuTitle = $menuTitle;
+        $this->title = $title;
     }
 
-    /**
-     * Get menu_title
-     *
-     * @return string
-     */
-    public function getMenuTitle()
+    public function getTitle()
     {
-        return $this->menuTitle;
+        return $this->title;
     }
 
     /**
@@ -116,7 +59,7 @@ class Page implements NodeInterface
 
     public function __toString()
     {
-        return $this->getMenuTitle();
+        return $this->getTitle();
     }
 
     /**
@@ -140,124 +83,9 @@ class Page implements NodeInterface
         return $this->regions;
     }
 
-    /**
-     * Set lft
-     *
-     * @param integer $lft
-     */
-    public function setLft($lft)
+    public function getFirstMenuItem()
     {
-        $this->lft = $lft;
-    }
-
-    /**
-     * Get lft
-     *
-     * @return integer
-     */
-    public function getLft()
-    {
-        return $this->lft;
-    }
-
-    /**
-     * Set lvl
-     *
-     * @param integer $lvl
-     */
-    public function setLvl($lvl)
-    {
-        $this->lvl = $lvl;
-    }
-
-    /**
-     * Get lvl
-     *
-     * @return integer
-     */
-    public function getLvl()
-    {
-        return $this->lvl;
-    }
-
-    /**
-     * Set rgt
-     *
-     * @param integer $rgt
-     */
-    public function setRgt($rgt)
-    {
-        $this->rgt = $rgt;
-    }
-
-    /**
-     * Get rgt
-     *
-     * @return integer
-     */
-    public function getRgt()
-    {
-        return $this->rgt;
-    }
-
-    /**
-     * Set root
-     *
-     * @param integer $root
-     */
-    public function setRoot($root)
-    {
-        $this->root = $root;
-    }
-
-    /**
-     * Get root
-     *
-     * @return integer
-     */
-    public function getRoot()
-    {
-        return $this->root;
-    }
-
-    /**
-     * Set parent
-     *
-     * @param Koala\ContentBundle\Entity\Page $parent
-     */
-    public function setParent(\Koala\ContentBundle\Entity\Page $parent)
-    {
-        $this->parent = $parent;
-    }
-
-    /**
-     * Get parent
-     *
-     * @return Koala\ContentBundle\Entity\Page
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
-
-    /**
-     * Get children
-     *
-     * @return Doctrine\Common\Collections\Collection
-     */
-    public function getChildren()
-    {
-        return $this->children;
-    }
-
-    /**
-     * Add children
-     *
-     * @param Koala\ContentBundle\Entity\Page $children
-     */
-    public function addPage(\Koala\ContentBundle\Entity\Page $children)
-    {
-        $this->children[] = $children;
+        return $this->menuItems[0];
     }
 
     /**

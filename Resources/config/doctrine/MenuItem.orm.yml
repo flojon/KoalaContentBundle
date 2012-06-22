@@ -1,0 +1,47 @@
+Koala\ContentBundle\Entity\MenuItem:
+    type: entity
+    table: menuItems
+    repositoryClass: Gedmo\Tree\Entity\Repository\NestedTreeRepository
+    gedmo:
+        tree:
+            type: nested
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        lft:
+            type: integer
+            gedmo: [treeLeft]
+        lvl:
+            type: integer
+            gedmo: [treeLevel]
+        rgt:
+            type: integer
+            gedmo: [treeRight]
+        root:
+            type: integer
+            nullable: true
+            gedmo: [treeRoot]
+        label:
+            type: string
+            length: 100
+    oneToMany:
+        children:
+            targetEntity: Koala\ContentBundle\Entity\MenuItem
+            mappedBy: parent
+            orderBy: {lft: ASC}
+    manyToOne:
+        page:
+            targetEntity: Koala\ContentBundle\Entity\Page
+            inversedBy: menuItems
+            cascade: [persist]
+        parent:
+            targetEntity: Koala\ContentBundle\Entity\MenuItem
+            inversedBy: children
+            joinColumn:
+                name: parent_id
+                referencedColumnName: id
+                onDelete: SET NULL
+            gedmo:
+                - treeParent
