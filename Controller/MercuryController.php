@@ -40,7 +40,7 @@ class MercuryController extends SecuredController
     /**
      * Save contents from Mercury Editor
      */
-    public function contentAction(Request $request, $url = "/")
+    public function contentAction(Request $request, $page_id)
     {
         if (!$this->can_edit()) {
             throw new \Exception('Permission denied');
@@ -51,7 +51,7 @@ class MercuryController extends SecuredController
         }
 
         $em = $this->getDoctrine()->getEntityManager();
-        $page = $em->getRepository('KoalaContentBundle:Page')->findOneByUrl($url);
+        $page = $em->getRepository('KoalaContentBundle:Page')->find($page_id);
         if (!$page) {
             throw $this->createNotFoundException('Invalid URL');
         }

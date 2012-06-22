@@ -5,11 +5,10 @@ koala_content_mercury_images:
         _method: POST
 
 koala_content_mercury_content:
-    pattern: /mercury/content/{url}
-    defaults: {_controller: KoalaContentBundle:Mercury:content, url: /}
+    pattern: /mercury/content/{page_id}
+    defaults: {_controller: KoalaContentBundle:Mercury:content}
     requirements:
         _method: PUT
-        url: .+
 
 koala_content_page_new:
     pattern: /new
@@ -28,18 +27,15 @@ koala_content_page_edit:
     defaults: {_controller: KoalaContentBundle:Page:edit}
     requirements:
         _method: GET
-        url: .+
 
 koala_content_page_update:
     pattern: /edit/{page_id}
     defaults: {_controller: KoalaContentBundle:Page:update}
     requirements:
         _method: POST
-        url: .+
 
 koala_content_page_delete:
     pattern: /delete/{page_id}
     defaults: {_controller: KoalaContentBundle:Page:delete}
     requirements:
         _method: POST
-        url: .+
