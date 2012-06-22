@@ -1,9 +1,9 @@
 {% extends 'KoalaContentBundle:Page:_form.html.twig' %}
 
-{% block action %}{{path('koala_content_page_update', {'url': form.vars.value.page.url})}}{% endblock %}
+{% block action %}{{path('koala_content_page_update', {'page_id': form.vars.value.page.id})}}{% endblock %}
 
 {% block buttons %}
-<input class="btn btn-danger" type="button" value="Remove page" data-confirm="Are you sure you want to remove this page? This cannot be undone!" data-action="{{path('koala_content_page_delete', {'url': form.vars.value.page.url})}}"/>
+<input class="btn btn-danger" type="button" value="Remove page" data-confirm="Are you sure you want to remove this page? This cannot be undone!" data-action="{{path('koala_content_page_delete', {'page_id': form.vars.value.page.id})}}"/>
 {% endblock %}
 
 {% block commit_text %}Save Page{% endblock %}

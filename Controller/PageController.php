@@ -50,25 +50,25 @@ class PageController extends SecuredController
     /**
      * @Template()
      */
-    public function editAction($url = "/")
+    public function editAction($page_id)
     {
         if (!$this->can_edit()) {
             throw new \Exception('Permission denied');
         }
 
-        $menuItem = $this->getPage($url)->getFirstMenuItem();
+        $menuItem = $this->getPage($page_id)->getFirstMenuItem();
         $form = $this->createForm(new MenuItemType(), $menuItem);
 
         return array('form'=>$form->createView());
     }
 
-    public function updateAction(Request $request, $url = "/")
+    public function updateAction(Request $request, $page_id)
     {
         if (!$this->can_edit()) {
             throw new \Exception('Permission denied');
         }
 
-        $menuItem = $this->getPage($url)->getFirstMenuItem();
+        $menuItem = $this->getPage($page_id)->getFirstMenuItem();
         $form = $this->createForm(new MenuItemType(), $menuItem);
 
         $form->bindRequest($request);
@@ -83,13 +83,13 @@ class PageController extends SecuredController
         return $this->render('KoalaContentBundle:Page:edit.html.twig', array('form'=>$form->createView()));
     }
 
-    public function deleteAction($url = "/")
+    public function deleteAction($page_id)
     {
         if (!$this->can_edit()) {
             throw new \Exception('Permission denied');
         }
 
-        $page = $this->getPage($url);
+        $page = $this->getPage($page_id);
         $em = $this->getDoctrine()->getEntityManager();
         $em->remove($page);
         $em->flush();
@@ -105,7 +105,11 @@ class PageController extends SecuredController
         $repo = $this->getDoctrine()
             ->getRepository('KoalaContentBundle:Page');
 
-        $page = $this->getPage($url);
+        $page = $this->getDoctrine()->getRepository('KoalaContentBundle:Page')->findOneByUrl($url);
+
+        if (!$page) {
+            throw $this->createNotFoundException('404 - Not found!');
+        }
 
         $regions = array();
         foreach ($page->getRegions() as $r) {
@@ -117,9 +121,9 @@ class PageController extends SecuredController
         return array('page' => $page, 'regions' => $regions, 'template' => $template, 'can_edit'=>$this->can_edit());
     }
 
-    protected function getPage($url)
+    protected function getPage($page_id)
     {
-        $page = $this->getDoctrine()->getRepository('KoalaContentBundle:Page')->findOneByUrl($url);
+        $page = $this->getDoctrine()->getRepository('KoalaContentBundle:Page')->find($page_id);
 
         if (!$page) {
             throw $this->createNotFoundException('404 - Not found!');

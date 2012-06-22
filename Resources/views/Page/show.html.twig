@@ -4,9 +4,9 @@
 	{{parent()}}
 	{% if (can_edit) %}
 	<meta name="mercury-images" content="{{path('koala_content_mercury_images')}}"/>
-	<meta name="mercury-content" content="{{path('koala_content_mercury_content', {'url': page.url})}}">
+	<meta name="mercury-content" content="{{path('koala_content_mercury_content', {page_id: page.id})}}">
 	<meta name="mercury-new" content="{{path('koala_content_page_new')}}"/>
-	<meta name="mercury-edit" content="{{path('koala_content_page_edit', {'url': page.url})}}"/>
+	<meta name="mercury-edit" content="{{path('koala_content_page_edit', {page_id: page.id})}}"/>
 	<script type="text/javascript" charset="utf-8">
 		window.mercuryPackages = {
 		    bundled: {
