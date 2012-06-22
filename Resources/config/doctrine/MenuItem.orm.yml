@@ -35,6 +35,7 @@ Koala\ContentBundle\Entity\MenuItem:
             targetEntity: Koala\ContentBundle\Entity\MenuItem
             mappedBy: parent
             orderBy: {lft: ASC}
+            cascade: [persist, remove]
     manyToOne:
         page:
             targetEntity: Koala\ContentBundle\Entity\Page
