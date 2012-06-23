@@ -27,12 +27,18 @@ Register the new bundles in your `app/AppKernel.php` file:
         return $bundles;
     }
     
-Enable the Doctrine Tree extension in your `app/config.yml` file:
+Enable the Doctrine Tree extension and the Symfony CMF router in your `app/config/config.yml` file:
 
     stof_doctrine_extensions:
         orm:
             default:
                 tree: true
+
+    symfony_cmf_routing_extra:
+        chain:
+            routers_by_id:
+                koala_content.dynamic_router: 200
+                router.default: 100
 
 Install assets:
 
@@ -42,15 +48,17 @@ Install Mercury files under `web/mercury`. It's recommended to use the newest re
 
 Download from [https://github.com/downloads/jejacks0n/mercury/mercury-v0.8.0.zip](https://github.com/downloads/jejacks0n/mercury/mercury-v0.8.0.zip) and extract to `web/mercury`.
 
-Next step is to setup the routing needed for the bundle to work. Add this to your `app/routing.yml`
+Next step is to setup the routing needed for the bundle to work. Add this to your `app/config/routing.yml`
 
     koala_content:
         resource: @KoalaContentBundle/Resources/config/routing.yml
         prefix: /
 
+_Note: By default Symfony has a _welcome route in `app/config/routing_dev.yml` which you need to remove if you want to use the root._
+
 If you rather want to content pages under a separate section you can change the prefix to something like `/cms`
 
-The last step is to update the database schema and load some default content using the setup command:
+The last step is to update the database schema and load some default content. Make sure you have setup your database config in `app/config/parameters.yml` before running the setup command:
 
     php app/console koala_content:setup
 
