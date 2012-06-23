@@ -13,6 +13,18 @@ Mercury.config.toolbars.primary.page = {
     editPage: ['Edit Page', 'Edit page settings', {modal: $('meta[name=mercury-edit]').attr('content')}],
 }
 
+Mercury.on('saved', function() {
+    $('#mercury_iframe')
+        .contents()
+        .find('#flash-messages')
+            .html('<div class="success">Page saved successfully!</div>')
+            .find('div.success')
+                .fadeIn('slow')
+                .delay(3000)
+                .fadeOut('slow')
+    ;
+});
+
 // Define confirmation and action through data-confirm and data-action attributes
 $(document).on('click', "input[data-confirm]", function() {
     if (confirm($(this).attr('data-confirm'))) {
