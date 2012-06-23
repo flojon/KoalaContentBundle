@@ -4,6 +4,8 @@
 <link rel="stylesheet" href="{{asset('bundles/koalacontent/css/main.css')}}" type="text/css" media="screen" title="no title" charset="utf-8"/>
 {% endblock %}
 
+{% block title %}{{page.title}}{% endblock %}
+
 {% block body %}
         <div id="wrapper">
             {% block menu %}<nav id="menu">{{knp_menu_render('main_menu')}}</nav>{% endblock %}
