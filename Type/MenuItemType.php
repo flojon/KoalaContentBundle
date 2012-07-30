@@ -11,7 +11,7 @@ class MenuItemType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('parent', 'entity', array(
-            'class'=>'KoalaContentBundle:MenuItem',
+            'class'=>'Koala\ContentBundle\Entity\MenuItem',
             'query_builder' =>
                 function(NestedTreeRepository $er) {
                     return $er->childrenQueryBuilder();

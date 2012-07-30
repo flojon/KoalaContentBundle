@@ -26,6 +26,6 @@ class LayoutsFormType extends AbstractType
 
     public function getName()
     {
-        return 'layout';
+        return 'layouts';
     }
 }
