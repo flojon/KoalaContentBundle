@@ -12,7 +12,7 @@ class RouteType extends AbstractType
         $builder->add('pattern', 'text', array('label'=>'URL'));
     }
 
-    public function getDefaultOptions()
+    public function getDefaultOptions(array $options)
     {
         return array(
             'data_class' => 'Koala\ContentBundle\Entity\Route',
