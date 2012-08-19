@@ -24,7 +24,7 @@ class PageController extends SecuredController
         $page = new Page();
         $menuItem = new MenuItem();
         $page->addRoute(new Route());
-        $menuItem->setPage($page);
+        $menuItem->setContent($page);
         $form = $this->createForm(new MenuItemType(), $menuItem);
 
         return array('form'=>$form->createView());
@@ -39,7 +39,7 @@ class PageController extends SecuredController
         $page = new Page();
         $menuItem = new MenuItem();
         $page->addRoute(new Route());
-        $menuItem->setPage($page);
+        $menuItem->setContent($page);
         $form = $this->createForm(new MenuItemType(), $menuItem);
 
         $form->bindRequest($request);
@@ -49,7 +49,7 @@ class PageController extends SecuredController
             $em->persist($menuItem);
             $em->flush();
 
-            return $this->redirect($this->generateUrl(null, array('content'=>$menuItem->getPage())));
+            return $this->redirect($this->generateUrl(null, array('content'=>$menuItem->getContent())));
         }
 
         return $this->render('KoalaContentBundle:Page:new.html.twig', array('form'=>$form->createView()));
@@ -85,7 +85,7 @@ class PageController extends SecuredController
             $em = $this->getDoctrine()->getEntityManager();
             $em->flush();
 
-            return $this->redirect($this->generateUrl(null, array('content'=>$menuItem->getPage())));
+            return $this->redirect($this->generateUrl(null, array('content'=>$menuItem->getContent())));
         }
 
         return $this->render('KoalaContentBundle:Page:edit.html.twig', array('form'=>$form->createView()));

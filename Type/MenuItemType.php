@@ -19,7 +19,7 @@ class MenuItemType extends AbstractType
             )
         );
         $builder->add('label');
-        $builder->add('page', new PageType());
+        $builder->add('content', new PageType());
     }
 
     public function getName()

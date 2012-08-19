@@ -167,12 +167,12 @@ class MenuItem implements NodeInterface
         $this->route = $route;
     }
 
-    public function getPage()
+    public function getContent()
     {
         return $this->page;
     }
 
-    public function setPage(Page $page)
+    public function setContent(Page $page)
     {
         $this->page = $page;
     }

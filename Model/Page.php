@@ -72,7 +72,7 @@ class Page implements RouteAwareInterface
 
     public function addRoute(RouteObjectInterface $route)
     {
-        $route->setPage($this);
+        $route->setRouteContent($this);
         $this->routes[] = $route;
     }
 
