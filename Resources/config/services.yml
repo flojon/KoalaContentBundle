@@ -34,3 +34,21 @@ services:
             - %mercury_twig_extension.package%
         tags:
             - { name: twig.extension }
+
+    koala_content.menuItem.form.type:
+        class: Koala\ContentBundle\Type\MenuItemType
+        arguments: [%koala_content.model.menuItem.class%]
+        tags:
+            - { name: form.type, alias: menuItem }
+
+    koala_content.page.form.type:
+        class: Koala\ContentBundle\Type\PageType
+        arguments: [%koala_content.model.page.class%]
+        tags:
+            - { name: form.type, alias: page }
+
+    koala_content.route.form.type:
+        class: Koala\ContentBundle\Type\RouteType
+        arguments: [%koala_content.model.route.class%]
+        tags:
+            - { name: form.type, alias: route }

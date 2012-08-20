@@ -7,6 +7,10 @@ parameters:
     dynamic_router.class: Symfony\Cmf\Bundle\RoutingExtraBundle\Routing\DynamicRouter
     mapper_page_controller.class: Symfony\Cmf\Component\Routing\Mapper\ControllerClassMapper
 
+    koala_content.model.menuItem.class: Koala\ContentBundle\Entity\MenuItem
+    koala_content.model.page.class: Koala\ContentBundle\Entity\Page
+    koala_content.model.route.class: Koala\ContentBundle\Entity\Route
+
 services:
     menu_provider:
         class: %menu_provider.class%

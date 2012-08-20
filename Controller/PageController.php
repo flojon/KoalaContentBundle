@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Koala\ContentBundle\Entity\Page;
 use Koala\ContentBundle\Entity\Route;
 use Koala\ContentBundle\Entity\MenuItem;
-use Koala\ContentBundle\Type\MenuItemType;
 
 class PageController extends SecuredController
 {
@@ -25,7 +24,7 @@ class PageController extends SecuredController
         $menuItem = new MenuItem();
         $page->addRoute(new Route());
         $menuItem->setContent($page);
-        $form = $this->createForm(new MenuItemType(), $menuItem);
+        $form = $this->createForm('menuItem', $menuItem);
 
         return array('form'=>$form->createView());
     }
@@ -40,7 +39,7 @@ class PageController extends SecuredController
         $menuItem = new MenuItem();
         $page->addRoute(new Route());
         $menuItem->setContent($page);
-        $form = $this->createForm(new MenuItemType(), $menuItem);
+        $form = $this->createForm('menuItem', $menuItem);
 
         $form->bindRequest($request);
 
@@ -65,7 +64,7 @@ class PageController extends SecuredController
         }
 
         $menuItem = $this->getPage($page_id)->getFirstMenuItem();
-        $form = $this->createForm(new MenuItemType(), $menuItem);
+        $form = $this->createForm('menuItem', $menuItem);
 
         return array('form'=>$form->createView());
     }
@@ -77,7 +76,7 @@ class PageController extends SecuredController
         }
 
         $menuItem = $this->getPage($page_id)->getFirstMenuItem();
-        $form = $this->createForm(new MenuItemType(), $menuItem);
+        $form = $this->createForm('menuItem', $menuItem);
 
         $form->bindRequest($request);
 
