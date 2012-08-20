@@ -46,6 +46,12 @@ services:
             - %koala_content.model.page.class%
             - %koala_content.model.route.class%
 
+    koala_content.route_manager:
+        class: %koala_content.route_manager.class%
+        arguments:
+            - @doctrine.orm.default_entity_manager
+            - %koala_content.model.route.class%
+
     koala_content.menu_item_manager:
         class: %koala_content.menu_item_manager.class%
         arguments:
