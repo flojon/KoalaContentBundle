@@ -16,6 +16,7 @@ parameters:
             - bundles/koalacontent/css/mercury_plugin.css
 
     koala_content.page_manager.class: Koala\ContentBundle\Doctrine\PageManager
+    koala_content.menu_item_manager.class: Koala\ContentBundle\Doctrine\MenuItemManager
 services:
     layouts_provider:
         class: %layouts_provider.class%
