@@ -55,7 +55,7 @@ class Route extends SymfonyRoute implements RouteObjectInterface
         return $this->page;
     }
 
-    public function setPage(Page $page)
+    public function setRouteContent(Page $page)
     {
         $this->page = $page;
     }

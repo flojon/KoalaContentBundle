@@ -2,21 +2,13 @@
 namespace Koala\ContentBundle\Type;
 
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
 
-class RouteType extends AbstractType
+class RouteType extends BaseType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('pattern', 'text', array('label'=>'URL'));
-    }
-
-    public function getDefaultOptions(array $options)
-    {
-        return array(
-            'data_class' => 'Koala\ContentBundle\Entity\Route',
-        );
     }
 
     public function getName()

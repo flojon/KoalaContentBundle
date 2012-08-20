@@ -1,0 +1,66 @@
+parameters:
+    menu_provider.class: Koala\ContentBundle\Service\EntityMenuProvider
+    menu_provider.entity: 'KoalaContentBundle:MenuItem'
+
+    route_repository.class: Koala\ContentBundle\Entity\RouteRepository
+    route_repository.entity: 'KoalaContentBundle:Route'
+    dynamic_router.class: Symfony\Cmf\Bundle\RoutingExtraBundle\Routing\DynamicRouter
+    mapper_page_controller.class: Symfony\Cmf\Component\Routing\Mapper\ControllerClassMapper
+
+    koala_content.model.menuItem.class: Koala\ContentBundle\Entity\MenuItem
+    koala_content.model.page.class: Koala\ContentBundle\Entity\Page
+    koala_content.model.route.class: Koala\ContentBundle\Entity\Route
+    koala_content.model.region.class: Koala\ContentBundle\Entity\Region
+
+services:
+    menu_provider:
+        class: %menu_provider.class%
+        arguments:
+            - @service_container
+            - @knp_menu.factory
+            - @doctrine.orm.default_entity_manager
+            - %menu_provider.entity%
+        tags:
+            - { name: knp_menu.provider }
+    koala_content.route_repository:
+        class: %route_repository.class%
+        arguments:
+            - @doctrine.orm.default_entity_manager
+            - %route_repository.entity%
+    koala_content.mapper_page_controller:
+        class: %mapper_page_controller.class%
+        arguments:
+            - Koala\ContentBundle\Entity\Page: KoalaContentBundle:Page:show
+    koala_content.dynamic_router:
+        class: %dynamic_router.class%
+        arguments:
+            - @koala_content.route_repository
+        calls:
+            - [ setContext, [@router.request_context]]
+            - [ setContainer, [@service_container]]
+            - [ addControllerMapper, [@koala_content.mapper_page_controller]]
+
+    koala_content.page_manager:
+        class: %koala_content.page_manager.class%
+        arguments:
+            - @doctrine.orm.default_entity_manager
+            - %koala_content.model.page.class%
+            - %koala_content.model.route.class%
+
+    koala_content.route_manager:
+        class: %koala_content.route_manager.class%
+        arguments:
+            - @doctrine.orm.default_entity_manager
+            - %koala_content.model.route.class%
+
+    koala_content.menu_item_manager:
+        class: %koala_content.menu_item_manager.class%
+        arguments:
+            - @doctrine.orm.default_entity_manager
+            - %koala_content.model.menuItem.class%
+
+    koala_content.region_manager:
+        class: %koala_content.region_manager.class%
+        arguments:
+            - @doctrine.orm.default_entity_manager
+            - %koala_content.model.region.class%

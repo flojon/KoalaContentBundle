@@ -4,7 +4,6 @@ namespace Koala\ContentBundle\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
-use Koala\ContentBundle\Entity\Region;
 use Koala\ContentBundle\MercuryRegions;
 
 class MercuryController extends SecuredController
@@ -50,8 +49,7 @@ class MercuryController extends SecuredController
             throw new \Exception('This URL should only be called using AJAX');
         }
 
-        $em = $this->getDoctrine()->getEntityManager();
-        $page = $em->getRepository('KoalaContentBundle:Page')->find($page_id);
+        $page = $this->get('koala_content.page_manager')->findById($page_id);
         if (!$page) {
             throw $this->createNotFoundException('Invalid URL');
         }
@@ -71,14 +69,14 @@ class MercuryController extends SecuredController
                 unset($regions[$name]);
             }
             foreach ($regions as $name=>$content) {
-                $region = new Region();
+                $region = $this->get('koala_content.region_manager')->createRegion();
                 $region->setName($name);
                 $region->setContent($content);
-                $em->persist($region);
+                $this->get('koala_content.region_manager')->update($region, false);
                 $page->addRegion($region);
             }
 
-            $em->flush();
+            $this->get('koala_content.region_manager')->flush();
         }
 
         $response = new Response("");

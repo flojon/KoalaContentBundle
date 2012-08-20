@@ -14,13 +14,11 @@ parameters:
         stylesheets:
             - mercury/stylesheets/mercury.bundle.css
             - bundles/koalacontent/css/mercury_plugin.css
-    menu_provider.class: Koala\ContentBundle\Service\EntityMenuProvider
-    menu_provider.entity: 'KoalaContentBundle:MenuItem'
 
-    route_repository.class: Koala\ContentBundle\Entity\RouteRepository
-    route_repository.entity: 'KoalaContentBundle:Route'
-    dynamic_router.class: Symfony\Cmf\Bundle\RoutingExtraBundle\Routing\DynamicRouter
-    mapper_page_controller.class: Symfony\Cmf\Component\Routing\Mapper\ControllerClassMapper
+    koala_content.page_manager.class: Koala\ContentBundle\Doctrine\PageManager
+    koala_content.route_manager.class: Koala\ContentBundle\Doctrine\RouteManager
+    koala_content.menu_item_manager.class: Koala\ContentBundle\Doctrine\MenuItemManager
+    koala_content.region_manager.class: Koala\ContentBundle\Doctrine\RegionManager
 
 services:
     layouts_provider:
@@ -41,29 +39,46 @@ services:
             - %mercury_twig_extension.package%
         tags:
             - { name: twig.extension }
-    menu_provider:
-        class: %menu_provider.class%
-        arguments:
-            - @service_container
-            - @knp_menu.factory
-            - @doctrine.orm.default_entity_manager
-            - %menu_provider.entity%
+
+    koala_content.menuItem.form.type:
+        class: Koala\ContentBundle\Type\MenuItemType
+        arguments: [%koala_content.model.menuItem.class%]
         tags:
-            - { name: knp_menu.provider }
-    koala_content.route_repository:
-        class: %route_repository.class%
+            - { name: form.type, alias: menuItem }
+
+    koala_content.page.form.type:
+        class: Koala\ContentBundle\Type\PageType
+        arguments: [%koala_content.model.page.class%]
+        tags:
+            - { name: form.type, alias: page }
+
+    koala_content.route.form.type:
+        class: Koala\ContentBundle\Type\RouteType
+        arguments: [%koala_content.model.route.class%]
+        tags:
+            - { name: form.type, alias: route }
+
+    koala_content.model.page:
+        class: %koala_content.model.page.class%
+        factory_service: koala_content.page_manager
+        factory_method: createPage
+
+    koala_content.model.menuItem:
+        class: %koala_content.model.menuItem.class%
+        factory_service: koala_content.menu_item_manager
+        factory_method: createMenuItem
         arguments:
-            - @doctrine.orm.default_entity_manager
-            - %route_repository.entity%
-    koala_content.mapper_page_controller:
-        class: %mapper_page_controller.class%
+            - @koala_content.model.page
+
+    koala_content.menuItem.form.new:
+        parent: koala_content.menuItem.form.edit
         arguments:
-            - Koala\ContentBundle\Entity\Page: KoalaContentBundle:Page:show
-    koala_content.dynamic_router:
-        class: %dynamic_router.class%
+            - @koala_content.model.menuItem
+
+    koala_content.menuItem.form.edit:
+        class: Symfony\Component\Form\Form
+        factory_service: form.factory
+        factory_method: createNamed
         arguments:
-            - @koala_content.route_repository
-        calls:
-            - [ setContext, [@router.request_context]]
-            - [ setContainer, [@service_container]]
-            - [ addControllerMapper, [@koala_content.mapper_page_controller]]
+            - menuItem
+            - @koala_content.menuItem.form.type
