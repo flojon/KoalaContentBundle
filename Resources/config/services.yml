@@ -66,3 +66,16 @@ services:
         factory_method: createMenuItem
         arguments:
             - @koala_content.model.page
+
+    koala_content.menuItem.form.new:
+        parent: koala_content.menuItem.form.edit
+        arguments:
+            - @koala_content.model.menuItem
+
+    koala_content.menuItem.form.edit:
+        class: Symfony\Component\Form\Form
+        factory_service: form.factory
+        factory_method: createNamed
+        arguments:
+            - menuItem
+            - @koala_content.menuItem.form.type
