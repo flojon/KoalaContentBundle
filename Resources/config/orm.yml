@@ -38,3 +38,10 @@ services:
             - [ setContext, [@router.request_context]]
             - [ setContainer, [@service_container]]
             - [ addControllerMapper, [@koala_content.mapper_page_controller]]
+
+    koala_content.page_manager:
+        class: %koala_content.page_manager.class%
+        arguments:
+            - @doctrine.orm.default_entity_manager
+            - %koala_content.model.page.class%
+            - %koala_content.model.route.class%
