@@ -27,6 +27,8 @@ class KoalaContentExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
+        $loader->load($config['db_driver'] . ".yml");
+
         if (!empty($config['mercury'])) {
             if ($container->hasParameter('mercury_twig_extension.package')) {
                 $config['mercury'] = array_merge_recursive($container->getParameter('mercury_twig_extension.package'), $config['mercury']);

@@ -21,8 +21,18 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('koala_content');
 
+        $supportedDrivers = array('orm');
+
         $rootNode
             ->children()
+                ->scalarNode('db_driver')
+                    ->defaultValue('orm')
+                    ->validate()
+                        ->ifNotInArray($supportedDrivers)
+                        ->thenInvalid('The driver %s is not supported. Please choose one of '.json_encode($supportedDrivers))
+                    ->end()
+                    ->cannotBeOverwritten()
+                ->end()
                 ->scalarNode('editor_role')->defaultValue('ROLE_ADMIN')->end()
             ->end()
         ;
