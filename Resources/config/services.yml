@@ -54,3 +54,15 @@ services:
         arguments: [%koala_content.model.route.class%]
         tags:
             - { name: form.type, alias: route }
+
+    koala_content.model.page:
+        class: %koala_content.model.page.class%
+        factory_service: koala_content.page_manager
+        factory_method: createPage
+
+    koala_content.model.menuItem:
+        class: %koala_content.model.menuItem.class%
+        factory_service: koala_content.menu_item_manager
+        factory_method: createMenuItem
+        arguments:
+            - @koala_content.model.page
