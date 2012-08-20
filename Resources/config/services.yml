@@ -18,6 +18,8 @@ parameters:
     koala_content.page_manager.class: Koala\ContentBundle\Doctrine\PageManager
     koala_content.route_manager.class: Koala\ContentBundle\Doctrine\RouteManager
     koala_content.menu_item_manager.class: Koala\ContentBundle\Doctrine\MenuItemManager
+    koala_content.region_manager.class: Koala\ContentBundle\Doctrine\RegionManager
+
 services:
     layouts_provider:
         class: %layouts_provider.class%

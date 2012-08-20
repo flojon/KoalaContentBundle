@@ -10,6 +10,7 @@ parameters:
     koala_content.model.menuItem.class: Koala\ContentBundle\Entity\MenuItem
     koala_content.model.page.class: Koala\ContentBundle\Entity\Page
     koala_content.model.route.class: Koala\ContentBundle\Entity\Route
+    koala_content.model.region.class: Koala\ContentBundle\Entity\Region
 
 services:
     menu_provider:
@@ -57,3 +58,9 @@ services:
         arguments:
             - @doctrine.orm.default_entity_manager
             - %koala_content.model.menuItem.class%
+
+    koala_content.region_manager:
+        class: %koala_content.region_manager.class%
+        arguments:
+            - @doctrine.orm.default_entity_manager
+            - %koala_content.model.region.class%
