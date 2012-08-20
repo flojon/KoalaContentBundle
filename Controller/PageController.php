@@ -5,9 +5,6 @@ namespace Koala\ContentBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
-use Koala\ContentBundle\Entity\Page;
-use Koala\ContentBundle\Entity\Route;
-use Koala\ContentBundle\Entity\MenuItem;
 
 class PageController extends SecuredController
 {
@@ -20,11 +17,7 @@ class PageController extends SecuredController
             throw new \Exception('Permission denied');
         }
 
-        $page = new Page();
-        $menuItem = new MenuItem();
-        $page->addRoute(new Route());
-        $menuItem->setContent($page);
-        $form = $this->createForm('menuItem', $menuItem);
+        $form = $this->get('koala_content.menu_item.form.new');
 
         return array('form'=>$form->createView());
     }
@@ -35,18 +28,13 @@ class PageController extends SecuredController
             throw new \Exception('Permission denied');
         }
 
-        $page = new Page();
-        $menuItem = new MenuItem();
-        $page->addRoute(new Route());
-        $menuItem->setContent($page);
-        $form = $this->createForm('menuItem', $menuItem);
+        $form = $this->get('koala_content.menu_item.form.new');
 
         $form->bindRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
-            $em->persist($menuItem);
-            $em->flush();
+            $menuItem = $form->getData();
+            $this->get('koala_content.menu_item_manager')->updateMenuItem($menuItem);
 
             return $this->redirect($this->generateUrl(null, array('content'=>$menuItem->getContent())));
         }
@@ -63,8 +51,10 @@ class PageController extends SecuredController
             throw new \Exception('Permission denied');
         }
 
-        $menuItem = $this->getPage($page_id)->getFirstMenuItem();
-        $form = $this->createForm('menuItem', $menuItem);
+        $menuItem = $this->get('koala_content.page_manager')->findById($page_id)->getFirstMenuItem();
+        
+        $form = $this->get('koala_content.menu_item.form.edit');
+        $form->setData($menuItem);
 
         return array('form'=>$form->createView());
     }
@@ -75,14 +65,15 @@ class PageController extends SecuredController
             throw new \Exception('Permission denied');
         }
 
-        $menuItem = $this->getPage($page_id)->getFirstMenuItem();
-        $form = $this->createForm('menuItem', $menuItem);
+        $menuItem = $this->get('koala_content.page_manager')->findById($page_id)->getFirstMenuItem();
 
+        $form = $this->get('koala_content.menu_item.form.edit');
+        $form->setData($menuItem);
         $form->bindRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getEntityManager();
-            $em->flush();
+            $menuItem = $form->getData();
+            $this->get('koala_content.menu_item_manager')->updateMenuItem($menuItem);
 
             return $this->redirect($this->generateUrl(null, array('content'=>$menuItem->getContent())));
         }
@@ -96,13 +87,10 @@ class PageController extends SecuredController
             throw new \Exception('Permission denied');
         }
 
-        $page = $this->getPage($page_id);
-        $em = $this->getDoctrine()->getEntityManager();
-        $em->remove($page);
-        $em->flush();
-
+        $page = $this->get('koala_content.page_manager')->findById($page_id);
+        $this->get('koala_content.page_manager')->removePage($page);
         return $this->redirect($this->generateUrl(null, array(
-            'route' => $this->getDoctrine()->getRepository('KoalaContentBundle:Route')->findOneByPattern('/')
+            'route' => $this->get('koala_content.route_manager')->findByPattern('/')
         )));
     }
 
@@ -118,17 +106,8 @@ class PageController extends SecuredController
 
         $template = $this->get('layouts_provider')->getTemplate($contentDocument->getLayout());
 
-        return array('page' => $contentDocument, 'regions' => $regions, 'template' => $template, 'can_edit'=>$this->can_edit());
-    }
-
-    protected function getPage($page_id)
-    {
-        $page = $this->getDoctrine()->getRepository('KoalaContentBundle:Page')->find($page_id);
-
-        if (!$page) {
-            throw $this->createNotFoundException('404 - Not found!');
-        }
-
-        return $page;
+        return $this->render('KoalaContentBundle:Page:show.html.twig',
+            array('page' => $contentDocument, 'regions' => $regions, 'template' => $template, 'can_edit'=>$this->can_edit())
+        );
     }
 }
