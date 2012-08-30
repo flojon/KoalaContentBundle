@@ -3,14 +3,10 @@
 namespace Koala\ContentBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 
 class PageController extends SecuredController
 {
-    /**
-     * @Template()
-     */
     public function newAction(Request $request)
     {
         if (!$this->can_edit()) {
@@ -19,7 +15,9 @@ class PageController extends SecuredController
 
         $form = $this->get('koala_content.menu_item.form.new');
 
-        return array('form'=>$form->createView());
+        return $this->render('KoalaContentBundle:Page:new.html.twig', array(
+            'form'=>$form->createView(),
+        ));
     }
 
     public function createAction(Request $request)
@@ -42,9 +40,6 @@ class PageController extends SecuredController
         return $this->render('KoalaContentBundle:Page:new.html.twig', array('form'=>$form->createView()));
     }
 
-    /**
-     * @Template()
-     */
     public function editAction($page_id)
     {
         if (!$this->can_edit()) {
@@ -56,7 +51,9 @@ class PageController extends SecuredController
         $form = $this->get('koala_content.menu_item.form.edit');
         $form->setData($menuItem);
 
-        return array('form'=>$form->createView());
+        return $this->render('KoalaContentBundle:Page:edit.html.twig', array(
+            'form'=>$form->createView(),
+        ));
     }
 
     public function updateAction(Request $request, $page_id)
@@ -94,9 +91,6 @@ class PageController extends SecuredController
         )));
     }
 
-    /**
-     * @Template()
-     */
     public function showAction($contentDocument)
     {
         $regions = array();
