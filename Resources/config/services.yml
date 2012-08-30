@@ -1,12 +1,13 @@
 parameters:
-    layouts_form_type.class: Koala\ContentBundle\Type\LayoutsFormType
-    layouts_provider.class: Koala\ContentBundle\LayoutsProvider
-    layouts_provider.layouts:
+    koala_content.layouts_form_type.class: Koala\ContentBundle\Type\LayoutsFormType
+    koala_content.layouts_provider.class: Koala\ContentBundle\LayoutsProvider
+    koala_content.layouts_provider.layouts:
         default: {name: Default Layout, template: 'KoalaContentBundle:Layouts:default.html.twig'}
-    mercury_twig_extension.class: Koala\ContentBundle\Twig\MercuryExtension
-    mercury_twig_extension.template: 'KoalaContentBundle::mercury_region.html.twig'
-    mercury_twig_extension.defaults: {tag: 'div', default: ''}
-    mercury_twig_extension.package:
+
+    koala_content.mercury_twig_extension.class: Koala\ContentBundle\Twig\MercuryExtension
+    koala_content.mercury_twig_extension.template: 'KoalaContentBundle::mercury_region.html.twig'
+    koala_content.mercury_twig_extension.defaults: {tag: 'div', default: ''}
+    koala_content.mercury_twig_extension.package:
         javascripts:
             - mercury/javascripts/mercury.min.js
             - mercury/javascripts/mercury_dialogs.js
@@ -20,40 +21,44 @@ parameters:
     koala_content.menu_item_manager.class: Koala\ContentBundle\Doctrine\MenuItemManager
     koala_content.region_manager.class: Koala\ContentBundle\Doctrine\RegionManager
 
+    koala_content.menu_item.form.type.class: Koala\ContentBundle\Type\MenuItemType
+    koala_content.page.form.type.class: Koala\ContentBundle\Type\PageType
+    koala_content.route.form.type.class: Koala\ContentBundle\Type\RouteType
+            
 services:
-    layouts_provider:
-        class: %layouts_provider.class%
+    koala_content.layouts_provider:
+        class: %koala_content.layouts_provider.class%
         arguments:
-            - %layouts_provider.layouts%
-    layouts_form_type:
-        class: %layouts_form_type.class%
+            - %koala_content.layouts_provider.layouts%
+    koala_content.layouts_form_type:
+        class: %koala_content.layouts_form_type.class%
         arguments:
-            - @layouts_provider
+            - @koala_content.layouts_provider
         tags:
             - { name: form.type, alias: layouts }
-    mercury_twig_extension:
-        class: %mercury_twig_extension.class%
+    koala_content.mercury_twig_extension:
+        class: %koala_content.mercury_twig_extension.class%
         arguments:
-            - %mercury_twig_extension.template%
-            - %mercury_twig_extension.defaults%
-            - %mercury_twig_extension.package%
+            - %koala_content.mercury_twig_extension.template%
+            - %koala_content.mercury_twig_extension.defaults%
+            - %koala_content.mercury_twig_extension.package%
         tags:
             - { name: twig.extension }
 
-    koala_content.menuItem.form.type:
-        class: Koala\ContentBundle\Type\MenuItemType
-        arguments: [%koala_content.model.menuItem.class%]
+    koala_content.menu_item.form.type:
+        class: %koala_content.menu_item.form.type.class%
+        arguments: [%koala_content.model.menu_item.class%]
         tags:
             - { name: form.type, alias: menuItem }
 
     koala_content.page.form.type:
-        class: Koala\ContentBundle\Type\PageType
+        class: %koala_content.page.form.type.class%
         arguments: [%koala_content.model.page.class%]
         tags:
             - { name: form.type, alias: page }
 
     koala_content.route.form.type:
-        class: Koala\ContentBundle\Type\RouteType
+        class: %koala_content.route.form.type.class%
         arguments: [%koala_content.model.route.class%]
         tags:
             - { name: form.type, alias: route }
@@ -63,22 +68,22 @@ services:
         factory_service: koala_content.page_manager
         factory_method: createPage
 
-    koala_content.model.menuItem:
-        class: %koala_content.model.menuItem.class%
+    koala_content.model.menu_item:
+        class: %koala_content.model.menu_item.class%
         factory_service: koala_content.menu_item_manager
         factory_method: createMenuItem
         arguments:
             - @koala_content.model.page
 
-    koala_content.menuItem.form.new:
-        parent: koala_content.menuItem.form.edit
+    koala_content.menu_item.form.new:
+        parent: koala_content.menu_item.form.edit
         arguments:
-            - @koala_content.model.menuItem
+            - @koala_content.model.menu_item
 
-    koala_content.menuItem.form.edit:
+    koala_content.menu_item.form.edit:
         class: Symfony\Component\Form\Form
         factory_service: form.factory
         factory_method: createNamed
         arguments:
             - menuItem
-            - @koala_content.menuItem.form.type
+            - @koala_content.menu_item.form.type
