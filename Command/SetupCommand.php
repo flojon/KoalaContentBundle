@@ -94,7 +94,7 @@ class SetupCommand extends ContainerAwareCommand
 
         $menuItem = new MenuItem();
         $menuItem->setLabel('Welcome');
-        $menuItem->setPage($page);
+        $menuItem->setContent($page);
         $menu->addMenuItem($menuItem);
         $repository->persistAsFirstChildOf($menuItem, $menu);
 
