@@ -1,5 +1,5 @@
 parameters:
-    koala_content.menu_provider.class: Koala\ContentBundle\Service\EntityMenuProvider
+    koala_content.menu_provider.class: Koala\ContentBundle\Menu\EntityMenuProvider
     koala_content.menu_provider.entity: 'KoalaContentBundle:MenuItem'
 
     koala_content.route_repository.class: Koala\ContentBundle\Entity\RouteRepository
