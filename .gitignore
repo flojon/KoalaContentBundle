@@ -1,0 +1,4 @@
+vendor/
+composer.lock
+Tests/Functional/app/app.sqlite
+Tests/Functional/web
