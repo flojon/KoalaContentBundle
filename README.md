@@ -1,6 +1,8 @@
 # KoalaContentBundle
 KoalaContentBundle is a simple CMS built for the Symfony 2 framework using the amazing [Mercury Editor][1] as front end editor.
 
+[![Build Status](https://secure.travis-ci.org/flojon/KoalaContentBundle.png?branch=master)](https://secure.travis-ci.org/flojon/KoalaContentBundle)
+
 ## Install using composer (Symfony 2.1)
 Add koala/content-bundle to composer.json.
 
