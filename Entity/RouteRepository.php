@@ -5,6 +5,7 @@ namespace Koala\ContentBundle\Entity;
 use Symfony\Cmf\Component\Routing\RouteRepositoryInterface;
 use Symfony\Component\Routing\Route as SymfonyRoute;
 use Symfony\Component\Routing\RouteCollection;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class RouteRepository implements RouteRepositoryInterface
@@ -35,8 +36,20 @@ class RouteRepository implements RouteRepositoryInterface
         }
 
         return $collection;
+    }
+
+    public function getRouteByName($name, $parameters = array())
+    {
+        if (0 !== strpos($name, $this->routeNamePrefix)) {
+            throw new RouteNotFoundException("Route name '$name' does not begin with the route name prefix '{$this->routeNamePrefix}'");
         }
 
-        return $routes;
+        $id = substr($name, strlen($this->routeNamePrefix));
+        $route = $this->dm->getRepository($this->className)->findOneById($id);
+        if (!$route) {
+            throw new RouteNotFoundException("No route found for name '$name'");
+        }
+
+        return $route;
     }
 }
