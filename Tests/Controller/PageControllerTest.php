@@ -12,7 +12,7 @@ class PageControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertGreaterThan(0, $crawler->filter('h1:contains("Hello World!!")')->count());
+        $this->assertGreaterThan(0, $crawler->filter('h1:contains("Hello World")')->count());
     }
 
     public function testNotFound()
