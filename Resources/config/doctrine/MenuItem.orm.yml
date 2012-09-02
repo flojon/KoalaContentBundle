@@ -30,6 +30,10 @@ Koala\ContentBundle\Entity\MenuItem:
             type: string
             length: 100
             nullable: TRUE
+        route:
+            type: string
+            length: 100
+            nullable: TRUE
     oneToMany:
         children:
             targetEntity: Koala\ContentBundle\Entity\MenuItem
@@ -37,9 +41,6 @@ Koala\ContentBundle\Entity\MenuItem:
             orderBy: {lft: ASC}
             cascade: [persist, remove]
     manyToOne:
-        route:
-            targetEntity: Koala\ContentBundle\Entity\Route
-            cascade: [persist]
         page:
             targetEntity: Koala\ContentBundle\Entity\Page
             inversedBy: menuItems
