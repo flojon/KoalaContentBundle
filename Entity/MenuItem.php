@@ -51,20 +51,14 @@ class MenuItem implements NodeInterface
      */
     function getOptions()
     {
-        $options = array(
+        return array(
             'label' => $this->getLabel(),
             'uri' => $this->getUri(),
+            'route' => $this->getRoute(),
+            'content' => $this->getContent(),
+            'routeParameters' => array(),
+            'routeAbsolute' => array(),
         );
-
-        if (!empty($this->route) || !empty($this->page)) {
-            $options['route'] = 'dynamic_router';
-            $options['routeParameters'] = array(
-                'route' => $this->route,
-                'content' => $this->page,
-            );
-        }
-
-        return $options;
     }
 
     /**
