@@ -4,6 +4,7 @@
     "keywords":     ["symfony", "mercury", "cms"],
     "type":         "symfony-bundle",
     "license":      "MIT",
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Jonas Flodén",
@@ -11,11 +12,24 @@
         }
     ],
     "require": {
-        "symfony/framework-bundle": "2.*",
+        "php": ">=5.3.3",
+        "symfony/framework-bundle": "2.1.*",
         "knplabs/knp-menu": ">=1.0",
         "knplabs/knp-menu-bundle": "1.1.*",
         "symfony-cmf/routing-extra-bundle": "dev-master",
         "stof/doctrine-extensions-bundle": ">=1.0"
+    },
+    "require-dev": {
+        "doctrine/doctrine-bundle": "1.0.*",
+        "doctrine/orm": ">=2.2,<2.4-dev",
+        "symfony/twig-bundle": "2.1.*",
+        "symfony/form": "2.1.*",
+        "symfony/validator": "2.1.*",
+        "symfony/finder": "2.1.*",
+        "symfony/class-loader": "2.1.*",
+        "symfony/yaml": "2.1.*",
+        "symfony/browser-kit": "2.1.*",
+        "symfony/css-selector": "2.1.*"
     },
     "autoload":     {
         "psr-0": { "Koala\\ContentBundle": "" }
