@@ -1,6 +1,7 @@
 parameters:
-    koala_content.menu_provider.class: Koala\ContentBundle\Service\EntityMenuProvider
+    koala_content.menu_provider.class: Koala\ContentBundle\Menu\EntityMenuProvider
     koala_content.menu_provider.entity: 'KoalaContentBundle:MenuItem'
+    koala_content.menu_factory.class: Koala\ContentBundle\Menu\ContentAwareMenuFactory
 
     koala_content.route_repository.class: Koala\ContentBundle\Entity\RouteRepository
     koala_content.route_repository.entity: 'KoalaContentBundle:Route'
@@ -18,11 +19,19 @@ services:
         class: %koala_content.menu_provider.class%
         arguments:
             - @service_container
-            - @knp_menu.factory
+            - @koala_content.menu_factory
             - @doctrine.orm.default_entity_manager
             - %koala_content.menu_provider.entity%
         tags:
             - { name: knp_menu.provider }
+
+    koala_content.menu_factory:
+        class: %koala_content.menu_factory.class%
+        arguments:
+            - @service_container
+            - @router
+            - @router 
+            - koala_content.content_key
 
     koala_content.route_repository:
         class: %koala_content.route_repository.class%

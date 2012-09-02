@@ -7,6 +7,8 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
+use Symfony\Cmf\Bundle\RoutingExtraBundle\Routing\DynamicRouter;
+
 /**
  * This is the class that loads and manages your bundle configuration
  *
@@ -28,6 +30,10 @@ class KoalaContentExtension extends Extension
         $loader->load('services.yml');
 
         $loader->load($config['db_driver'] . ".yml");
+
+        if (class_exists('Symfony\\Cmf\\Bundle\\RoutingExtraBundle\\Routing\\DynamicRouter')) {
+            $container->setParameter($this->getAlias() . '.content_key', DynamicRouter::CONTENT_KEY);
+        }
 
         if (!empty($config['mercury'])) {
             if ($container->hasParameter('mercury_twig_extension.package')) {

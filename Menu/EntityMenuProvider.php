@@ -1,6 +1,6 @@
 <?php
 
-namespace Koala\ContentBundle\Service;
+namespace Koala\ContentBundle\Menu;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Common\Persistence\ObjectManager;
