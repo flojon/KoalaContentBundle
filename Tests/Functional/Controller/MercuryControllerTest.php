@@ -76,7 +76,9 @@ class MercuryControllerTest extends WebTestCase
     public function testImages()
     {
         $client = static::createClient();
-        $webroot = $this->getPhpUnitXmlDir() . "/../web";
+        $kernel_dir = isset($_SERVER['KERNEL_DIR'])
+            ? $_SERVER['KERNEL_DIR'] : static::getPhpUnitXmlDir();
+        $webroot = $kernel_dir . "/../web";
         $file = dirname(__FILE__) . '/cat.jpg'; // Test file
         $tmp_file = tempnam('', 'cat'); // Temp copy
         copy($file, $tmp_file);

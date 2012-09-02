@@ -1,0 +1,52 @@
+framework:
+    secret:          ThisTokenIsNotSoSecretChangeIt
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: %kernel.debug%
+    form:            true
+    csrf_protection: true
+    validation:      { enable_annotations: true }
+    templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
+    default_locale:  en
+    trust_proxy_headers: false # Whether or not the Request object should trust proxy headers (X_FORWARDED_FOR/HTTP_CLIENT_IP)
+    session:         ~
+    test: ~
+    session:
+        storage_id: session.storage.mock_file
+
+monolog:
+    handlers:
+        main:
+            type:  stream
+            path:  %kernel.logs_dir%/%kernel.environment%.log
+            level: debug
+        firephp:
+            type:  firephp
+            level: info
+
+# Twig Configuration
+twig:
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver: pdo_sqlite
+        path: '%kernel.root_dir%/app.sqlite'
+        charset:  UTF8
+
+    orm:
+        auto_generate_proxy_classes: %kernel.debug%
+        auto_mapping: true
+
+stof_doctrine_extensions:
+    orm:
+        default:
+            tree: true
+
+symfony_cmf_routing_extra:
+    chain:
+        routers_by_id:
+            koala_content.dynamic_router: 200
+            router.default: 100

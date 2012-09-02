@@ -1,0 +1,3 @@
+koala_content:
+    resource: @KoalaContentBundle/Resources/config/routing.yml
+    prefix: /
