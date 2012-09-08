@@ -105,6 +105,7 @@ class PageController extends SecuredController
             'regions' => $regions,
             'template' => $template,
             'can_edit' => $this->can_edit(),
+            'save_method' => $this->container->getParameter('koala_content.save_method'),
         ));
     }
 }
