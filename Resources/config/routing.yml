@@ -8,7 +8,7 @@ koala_content_mercury_content:
     pattern: /mercury/content/{page_id}
     defaults: {_controller: KoalaContentBundle:Mercury:content}
     requirements:
-        _method: PUT
+        _method: PUT|POST
 
 koala_content_page_new:
     pattern: /new
