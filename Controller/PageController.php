@@ -100,8 +100,11 @@ class PageController extends SecuredController
 
         $template = $this->get('koala_content.layouts_provider')->getTemplate($contentDocument->getLayout());
 
-        return $this->render('KoalaContentBundle:Page:show.html.twig',
-            array('page' => $contentDocument, 'regions' => $regions, 'template' => $template, 'can_edit'=>$this->can_edit())
-        );
+        return $this->render('KoalaContentBundle:Page:show.html.twig', array(
+            'page' => $contentDocument,
+            'regions' => $regions,
+            'template' => $template,
+            'can_edit' => $this->can_edit(),
+        ));
     }
 }
