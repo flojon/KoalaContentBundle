@@ -22,6 +22,7 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('koala_content');
 
         $supportedDrivers = array('orm');
+        $saveMethods = array('put', 'post');
 
         $rootNode
             ->children()
@@ -32,6 +33,13 @@ class Configuration implements ConfigurationInterface
                         ->thenInvalid('The driver %s is not supported. Please choose one of '.json_encode($supportedDrivers))
                     ->end()
                     ->cannotBeOverwritten()
+                ->end()
+                ->scalarNode('save_method')
+                    ->defaultValue('put')
+                    ->validate()
+                        ->ifNotInArray($saveMethods)
+                        ->thenInvalid('Invalid saveMethod: %s. Please choose one of '.json_encode($saveMethods))
+                    ->end()
                 ->end()
                 ->scalarNode('editor_role')->defaultValue('ROLE_ADMIN')->end()
             ->end()

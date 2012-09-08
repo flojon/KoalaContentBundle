@@ -21,6 +21,6 @@
 		    }
 		};  
 	</script>
-	<script src="{{asset('mercury/javascripts/mercury_loader.js')}}?visible=false&pack=bundled&src={{app.request.basepath}}" type="text/javascript" charset="utf-8"></script>
+	<script src="{{asset('mercury/javascripts/mercury_loader.js')}}?visible=false&pack=bundled&saveMethod={{save_method|upper}}&src={{app.request.basepath}}" type="text/javascript" charset="utf-8"></script>
 	{% endif %}
 {% endblock %}
