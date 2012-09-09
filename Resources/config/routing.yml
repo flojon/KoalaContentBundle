@@ -3,18 +3,24 @@ koala_content_mercury_images:
     defaults: {_controller: KoalaContentBundle:Mercury:images}
     requirements:
         _method: POST
+    options:
+        expose: true
 
 koala_content_mercury_content:
     pattern: /mercury/content/{page_id}
     defaults: {_controller: KoalaContentBundle:Mercury:content}
     requirements:
         _method: PUT|POST
+    options:
+        expose: true
 
 koala_content_page_new:
     pattern: /new
     defaults: {_controller: KoalaContentBundle:Page:new}
     requirements:
         _method: GET
+    options:
+        expose: true
 
 koala_content_page_create:
     pattern: /new
@@ -27,6 +33,8 @@ koala_content_page_edit:
     defaults: {_controller: KoalaContentBundle:Page:edit}
     requirements:
         _method: GET
+    options:
+        expose: true
 
 koala_content_page_update:
     pattern: /edit/{page_id}

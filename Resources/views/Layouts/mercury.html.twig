@@ -3,6 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, maximum-scale=1.0, initial-scale=1.0">
     <title>{{page.title}}</title>
+    <meta name="page-id" content="{{page.id}}"/>
     <meta name="mercury-images" content="{{path('koala_content_mercury_images')}}"/>
     <meta name="mercury-content" content="{{path('koala_content_mercury_content', {page_id: page.id})}}">
     <meta name="mercury-new" content="{{path('koala_content_page_new')}}"/>
@@ -11,6 +12,8 @@
     <link rel="stylesheet" href="{{asset('bundles/koalacontent/css/mercury_plugin.css')}}" type="text/css" charset="utf-8"/>
     <link rel="stylesheet" href="{{asset('bundles/koalacontent/css/flash.css')}}" type="text/css" charset="utf-8"/>
     <script src="{{asset('https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')}}" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
     <script src="{{asset('mercury/javascripts/mercury.min.js')}}" type="text/javascript" charset="utf-8"></script>
     <script src="{{asset('mercury/javascripts/mercury_dialogs.js')}}" type="text/javascript" charset="utf-8"></script>
     <script src="{{asset('bundles/koalacontent/js/mercury_plugin.js')}}" type="text/javascript" charset="utf-8"></script>

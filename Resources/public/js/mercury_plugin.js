@@ -1,5 +1,7 @@
+var page_id = $('meta[name=page-id]').attr('content');
+
 Mercury.on('ready', function() {
-    Mercury.config.uploading.url = $('meta[name=mercury-images]').attr('content');
+    Mercury.config.uploading.url = Routing.generate('koala_content_mercury_images', {page_id: page_id});
     // Enable Mercury after clicking in a mercury region
     $('#mercury_iframe').contents().one('click', "[contenteditable=false]", function() {
         Mercury.trigger('toggle:interface');
@@ -8,8 +10,8 @@ Mercury.on('ready', function() {
 
 Mercury.config.toolbars.primary.sep10 = '-';
 Mercury.config.toolbars.primary.page = {
-    newPage: ['New Page', 'Create a new page', {modal: $('meta[name=mercury-new]').attr('content')}],
-    editPage: ['Edit Page', 'Edit page settings', {modal: $('meta[name=mercury-edit]').attr('content')}],
+    newPage: ['New Page', 'Create a new page', {modal: Routing.generate('koala_content_page_new')}],
+    editPage: ['Edit Page', 'Edit page settings', {modal: Routing.generate('koala_content_page_edit', {page_id: page_id})}],
 }
 
 Mercury.on('saved', function() {
