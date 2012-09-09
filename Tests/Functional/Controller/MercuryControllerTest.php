@@ -8,6 +8,7 @@ use Symfony\Component\DomCrawler\Crawler;
 class MercuryControllerTest extends WebTestCase
 {
     private $page_url = '/test-page';
+    private $page_id;
     private $edit_url;
     private $save_url;
 
@@ -30,8 +31,11 @@ class MercuryControllerTest extends WebTestCase
         $crawler = $client->submit($form);
         $crawler = $client->followRedirect();
 
-        $this->edit_url = $crawler->filter('meta[name=mercury-edit]')->attr('content');
-        $this->save_url = $crawler->filter('meta[name=mercury-content]')->attr('content');        
+        $this->page_id = $crawler->filter('meta[name=page-id]')->attr('content');
+        $this->edit_url = $client->getContainer()->get('router')
+                            ->generate('koala_content_page_edit', array('page_id' => $this->page_id));
+        $this->save_url = $client->getContainer()->get('router')
+                            ->generate('koala_content_mercury_content', array('page_id' => $this->page_id));
     }
 
     public function tearDown()

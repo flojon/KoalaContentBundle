@@ -17,7 +17,8 @@
         "knplabs/knp-menu": ">=1.0",
         "knplabs/knp-menu-bundle": "1.1.*",
         "symfony-cmf/routing-extra-bundle": "dev-master",
-        "stof/doctrine-extensions-bundle": ">=1.0"
+        "stof/doctrine-extensions-bundle": ">=1.0",
+        "friendsofsymfony/jsrouting-bundle": "dev-master"
     },
     "require-dev": {
         "doctrine/doctrine-bundle": "1.0.*",
