@@ -9,7 +9,7 @@ class PageControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/');
+        $crawler = $client->request('GET', '/', array('mercury_frame'=>true));
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertGreaterThan(0, $crawler->filter('h1:contains("Hello World")')->count());
@@ -19,7 +19,7 @@ class PageControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/this-page-does-not-exist');
+        $crawler = $client->request('GET', '/this-page-does-not-exist', array('mercury_frame'=>true));
 
         $this->assertEquals(404, $client->getResponse()->getStatusCode());        
     }
@@ -47,11 +47,12 @@ class PageControllerTest extends WebTestCase
         $crawler = $client->submit($form);
 
         $this->assertTrue($client->getResponse()->isRedirect('/new-page-url'));
-        $crawler = $client->followRedirect();
+        $crawler = $client->request('GET', '/new-page-url', array('mercury_frame'=>true)); // follow redirect
 
         $this->assertGreaterThan(0, $crawler->filter('title:contains("New Page Title")')->count());
         $this->assertGreaterThan(0, $crawler->filter('nav:contains("New Menu Item")')->count());
 
+        $crawler = $client->request('GET', '/new-page-url'); // Get meta data
         return $crawler->filter('meta[name=mercury-edit]')->attr('content');
     }
 
@@ -86,7 +87,7 @@ class PageControllerTest extends WebTestCase
         $crawler = $client->submit($form);
 
         $this->assertTrue($client->getResponse()->isRedirect('/page/new-sub-page-url'));
-        $crawler = $client->followRedirect();
+        $crawler = $client->request('GET', '/page/new-sub-page-url', array('mercury_frame'=>true)); // follow redirect
         
         $this->assertEquals(0, $crawler->filter('nav:contains("New Menu Item")')->count());
         $this->assertGreaterThan(0, $crawler->filter('nav:contains("New Sub Menu Item")')->count());
@@ -96,7 +97,7 @@ class PageControllerTest extends WebTestCase
         $delete_url = $crawler->selectButton('Remove page')->attr('data-action');
         $client->request('POST', $delete_url);
         $this->assertTrue($client->getResponse()->isRedirect('/'));
-        $crawler = $client->followRedirect();
+        $crawler = $client->request('GET', '/', array('mercury_frame'=>true)); // follow redirect
         $this->assertEquals(0, $crawler->filter('nav:contains("New Sub Menu Item")')->count());        
     }
 }

@@ -60,7 +60,7 @@ class MercuryControllerTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
         // Get page and make sure it's updated
-        $crawler = $client->request('GET', $this->page_url);
+        $crawler = $client->request('GET', $this->page_url, array('mercury_frame' => true));
         $this->assertGreaterThan(0, $crawler->filter('div#content > h1:contains("Hello World!!")')->count());
 
         // Make an update
@@ -69,7 +69,7 @@ class MercuryControllerTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
         // Get page and make sure it's updated
-        $crawler = $client->request('GET', $this->page_url);
+        $crawler = $client->request('GET', $this->page_url, array('mercury_frame' => true));
         $this->assertGreaterThan(0, $crawler->filter('div#content > h1:contains("Goodbye World...")')->count());
     }
 
