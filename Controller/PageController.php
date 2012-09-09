@@ -91,8 +91,15 @@ class PageController extends SecuredController
         )));
     }
 
-    public function showAction($contentDocument)
+    public function showAction(Request $request, $contentDocument)
     {
+        if (!$request->query->get('mercury_frame') && $this->can_edit()) { // Are we editing?
+            return $this->render("KoalaContentBundle:Layouts:mercury.html.twig", array(
+                'page' => $contentDocument,
+                'save_method' => $this->container->getParameter('koala_content.save_method'),
+            ));
+        }
+
         $regions = array();
         foreach ($contentDocument->getRegions() as $r) {
             $regions[$r->getName()] = $r->getContent();
@@ -100,12 +107,9 @@ class PageController extends SecuredController
 
         $template = $this->get('koala_content.layouts_provider')->getTemplate($contentDocument->getLayout());
 
-        return $this->render('KoalaContentBundle:Page:show.html.twig', array(
+        return $this->render($template, array(
             'page' => $contentDocument,
             'regions' => $regions,
-            'template' => $template,
-            'can_edit' => $this->can_edit(),
-            'save_method' => $this->container->getParameter('koala_content.save_method'),
         ));
     }
 }

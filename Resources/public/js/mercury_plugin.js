@@ -1,6 +1,5 @@
 Mercury.on('ready', function() {
     Mercury.config.uploading.url = $('meta[name=mercury-images]').attr('content');
-    Mercury.saveUrl = $('meta[name=mercury-content]').attr('content');
     // Enable Mercury after clicking in a mercury region
     $('#mercury_iframe').contents().one('click', "[contenteditable=false]", function() {
         Mercury.trigger('toggle:interface');
@@ -14,14 +13,12 @@ Mercury.config.toolbars.primary.page = {
 }
 
 Mercury.on('saved', function() {
-    $('#mercury_iframe')
-        .contents()
-        .find('#flash-messages')
-            .html('<div class="success">Page saved successfully!</div>')
-            .find('div.success')
-                .fadeIn('slow')
-                .delay(3000)
-                .fadeOut('slow')
+    $('#flash-messages')
+        .html('<div class="success">Page saved successfully!</div>')
+        .find('div.success')
+            .fadeIn('fast')
+            .delay(3000)
+            .fadeOut('slow')
     ;
 });
 
