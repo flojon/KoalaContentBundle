@@ -53,7 +53,10 @@ class PageControllerTest extends WebTestCase
         $this->assertGreaterThan(0, $crawler->filter('nav:contains("New Menu Item")')->count());
 
         $crawler = $client->request('GET', '/new-page-url'); // Get meta data
-        return $crawler->filter('meta[name=mercury-edit]')->attr('content');
+        $page_id = $crawler->filter('meta[name=page-id]')->attr('content');
+
+        return $client->getContainer()->get('router')
+                ->generate('koala_content_page_edit', array('page_id' => $page_id));
     }
 
     /**
