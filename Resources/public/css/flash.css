@@ -1,9 +1,10 @@
 #flash-messages {
   width:400px;
   left: 50%;
-  top: 0;
-  position: absolute;
+  top: 100px;
+  position: fixed;
   margin-left: -200px;
+  z-index: 10030;
 }
 
 .info, .success, .warning, .error {
